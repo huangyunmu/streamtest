@@ -1,3 +1,4 @@
+from pyspark import SparkContext
 import random
 def inside(p):
     x, y = random.random(), random.random()
