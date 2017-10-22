@@ -52,7 +52,6 @@ public class Test {
 		//
 		// float[] weight=lr.train(rd, 0.001f, 2, 1);
 		// System.out.print("Final Weight:" + Arrays.toString(weight));
-		env.execute("Streaming WordCount");
 	}
 
 }
