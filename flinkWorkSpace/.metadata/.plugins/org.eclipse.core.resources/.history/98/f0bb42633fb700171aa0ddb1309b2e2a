@@ -47,11 +47,13 @@ public class Test {
 			}
 		});
 		if (params.has("output")) {
-			floatData.writeAsText(params.get("output"));
+			counts.writeAsText(params.get("output"));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
-			floatData.print();
+			counts.print();
 		}
+		
+		floatData.print();
 		// LogRegression lr = new LogRegression();
 		// ReadData rd = new ReadData(PATH);
 		//

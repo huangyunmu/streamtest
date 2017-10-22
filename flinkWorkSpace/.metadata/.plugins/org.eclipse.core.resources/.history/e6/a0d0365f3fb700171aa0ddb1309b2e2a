@@ -46,12 +46,7 @@ public class Test {
 				return temp;
 			}
 		});
-		if (params.has("output")) {
-			floatData.writeAsText(params.get("output"));
-		} else {
-			System.out.println("Printing result to stdout. Use --output to specify output path.");
-			floatData.print();
-		}
+		floatData.print();
 		// LogRegression lr = new LogRegression();
 		// ReadData rd = new ReadData(PATH);
 		//
