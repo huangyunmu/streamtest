@@ -1,0 +1,15 @@
+package andy;
+
+import java.util.List;
+
+public class Test {
+	public static final String PATH = "D:\\VM\\Sharefolder\\Data\\Stream\\logistic.txt";
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ReadData rd=new ReadData(PATH);
+		for(List<Float> list: rd.dataList){
+			
+		}
+	}
+
+}

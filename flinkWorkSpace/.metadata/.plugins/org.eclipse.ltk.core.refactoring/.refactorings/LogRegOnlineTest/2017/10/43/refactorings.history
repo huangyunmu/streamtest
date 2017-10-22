@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 4 elements to &apos;LogReg/src/main/java/Flink_Test.LogReg&apos;&#x0D;&#x0A;- Original project: &apos;LogRegOnlineTest&apos;&#x0D;&#x0A;- Destination element: &apos;LogReg/src/main/java/Flink_Test.LogReg&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     andy.ReadData.java&#x0D;&#x0A;     andy.DataRecord.java&#x0D;&#x0A;     andy.LogRegression.java&#x0D;&#x0A;     andy.Test.java" description="Copy compilation units" destination="=LogReg/src\/main\/java&lt;Flink_Test.LogReg" element1="/src&lt;andy{ReadData.java" element2="/src&lt;andy{DataRecord.java" element3="/src&lt;andy{LogRegression.java" element4="/src&lt;andy{Test.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1508671616884" units="4" version="1.0"/>
+</session>

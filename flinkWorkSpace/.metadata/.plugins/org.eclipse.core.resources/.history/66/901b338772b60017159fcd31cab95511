@@ -1,0 +1,60 @@
+package andy;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class LogRegression {
+
+	public void train(ReadData rd, float step,int dim) {
+//		ArrayList<ArrayList<Float>> datas = rd.dataList;
+//		ArrayList<Float> labels = rd.labelList;
+		int size = datas.size();
+		float[] weight = new float[dim]; // Init
+		float changes = Float.MAX_VALUE;
+		int caculate = 0;
+
+		while (changes > 0.0001) {
+			float[] wClone = weight.clone();
+			for (int s = 0; s < size; s++) {
+				DataRecord tempDr=rd.getOneData();
+				ArrayList<Float> tempData=rd.getOneData()
+				float lire = innerProduct(weight, );
+				float out = sigmoid(lire);
+				float error = labels.get(s) - out;
+				for (int d = 0; d < dim; d++) {
+					weight[d] += step * error * datas.get(s).get(d);
+				}
+			}
+			changes = changsWeight(wClone, weight);
+			caculate++;
+
+			System.out.println("Iteration:" + caculate + "  Weight:" + Arrays.toString(weight));
+		}
+
+	}
+
+	private float changsWeight(float[] wClone, float[] w) {
+		float changs = 0;
+		for (int i = 0; i < w.length; i++) {
+			changs += Math.pow(w[i] - wClone[i], 2);
+		}
+
+		return (float) Math.sqrt(changs);
+
+	}
+
+	private float innerProduct(float[] w, List<Float> x) {
+		float sum = 0;
+		for (int i = 0; i < w.length; i++) {
+			sum += w[i] * x.get(i);
+		}
+
+		return sum;
+	}
+
+	private float sigmoid(float src) {
+		return (float) (1.0 / (1 + Math.exp(-src)));
+	}
+
+}

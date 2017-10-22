@@ -1,0 +1,28 @@
+package Flink_Test.LogReg;
+
+
+import org.apache.flink.api.common.functions.FlatMapFunction;
+import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.utils.ParameterTool;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.util.Collector;
+
+public class Test {
+
+	public static final String PATH = "D:\\VM\\Sharefolder\\Data\\Stream\\logistic.txt";
+
+	public static void main(String[] args) throws Exception{
+		// TODO Auto-generated method stub
+		
+		// Checking input parameters
+				final ParameterTool params = ParameterTool.fromArgs(args);
+				
+		LogRegression lr = new LogRegression();
+		ReadData rd = new ReadData(PATH);
+
+		
+		lr.train(rd, 0.001f,2,1); 
+	}
+
+}
