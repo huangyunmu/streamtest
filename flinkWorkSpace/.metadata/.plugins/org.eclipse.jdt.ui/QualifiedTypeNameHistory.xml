@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.apache.flink.api.common.functions.MapFunction"/>
+<fullyQualifiedTypeName name="org.apache.flink.streaming.api.datastream.DataStreamSink"/>
 </qualifiedTypeNameHistroy>

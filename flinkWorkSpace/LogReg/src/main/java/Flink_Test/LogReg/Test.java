@@ -47,7 +47,8 @@ public class Test {
 			}
 		});
 		if (params.has("output")) {
-			floatData.writeAsText(params.get("output"));
+			// floatData.writeAsText(params.get("output"));
+			floatData.writeAsCsv(params.get("output"));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
 			floatData.print();
@@ -57,7 +58,7 @@ public class Test {
 		//
 		// float[] weight=lr.train(rd, 0.001f, 2, 1);
 		// System.out.print("Final Weight:" + Arrays.toString(weight));
-		env.execute("Streaming WordCount");
+		env.execute("My Log Reg Test");
 	}
 
 }
