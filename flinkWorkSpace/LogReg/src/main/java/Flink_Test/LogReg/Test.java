@@ -3,6 +3,7 @@ package Flink_Test.LogReg;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.IterativeStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class Test {
@@ -30,6 +31,7 @@ public class Test {
 			System.out.println("Use --input to specify file input.");
 			// get default test text data
 		}
+
 		DataStream<String[]> strData;
 		strData = text.map(new MapFunction<String, String[]>() {
 			public String[] map(String value) throws Exception {
@@ -46,12 +48,23 @@ public class Test {
 				return temp;
 			}
 		});
+		IterativeStream<Float[]> worker = floatData.iterate();
+
+		DataStream<String> output = floatData.map(new MapFunction<Float[], String>() {
+			public String map(Float[] value) throws Exception {
+				String temp = "";
+				for (int i = 0; i < value.length; i++) {
+					temp = temp + value[i].toString() + " ";
+				}
+				return temp;
+			}
+		});
 		if (params.has("output")) {
-			// floatData.writeAsText(params.get("output"));
-			floatData.writeAsCsv(params.get("output"));
+			output.writeAsText(params.get("output"));
+			// floatData.writeAsCsv(params.get("output"));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
-			floatData.print();
+			output.print();
 		}
 		// LogRegression lr = new LogRegression();
 		// ReadData rd = new ReadData(PATH);

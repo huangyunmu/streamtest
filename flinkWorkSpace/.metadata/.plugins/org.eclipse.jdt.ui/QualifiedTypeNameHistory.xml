@@ -2,4 +2,5 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.apache.flink.api.common.functions.MapFunction"/>
 <fullyQualifiedTypeName name="org.apache.flink.streaming.api.datastream.DataStreamSink"/>
+<fullyQualifiedTypeName name="org.apache.flink.api.java.DataSet"/>
 </qualifiedTypeNameHistroy>

@@ -1,6 +1,0 @@
-package andy;
-
-public class DataRecord {
-     private ArrayList<Float> dataList;
-     private Float label;
-}
