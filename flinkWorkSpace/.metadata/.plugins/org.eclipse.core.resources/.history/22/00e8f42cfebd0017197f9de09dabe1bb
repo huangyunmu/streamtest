@@ -12,8 +12,8 @@ public class Test {
 
 	// public static final String PATH =
 	// "D:\\VM\\Sharefolder\\Data\\Stream\\logistic.txt";
-    static int MODEL_SISE=2;
-    static Float STEP=0.001f;
+    static int MODEL_SISE=3;
+    static Float STEP=0.01f;
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 
