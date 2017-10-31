@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;label&apos; in &apos;Flink_Test.LogReg.Test.main(...).new MapFunction() {...}.map(...)&apos; to &apos;tempLabel&apos;&#x0D;&#x0A;- Original project: &apos;LogReg&apos;&#x0D;&#x0A;- Original element: &apos;Flink_Test.LogReg.Test.main(...).new MapFunction() {...}.map(String[]).label&apos;&#x0D;&#x0A;- Renamed element: &apos;label&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;label&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java&lt;Flink_Test.LogReg{Test.java[Test~main~\[QString;[!2~map~\[QString;@label!1768!1779!1774!1778!QFloat;!0!false" name="tempLabel" references="true" stamp="1509423702256" version="1.0"/>
+</session>
