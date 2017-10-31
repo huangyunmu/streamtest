@@ -86,7 +86,7 @@ public class Test {
 		if (params.has("output")) {
 //			output.writeAsText(params.get("output"));
 			// floatData.writeAsCsv(params.get("output"));
-			System.out.println("Final  Weight:" + Arrays.toString(weight));
+			System.out.println("  Weight:" + Arrays.toString(weight));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
 //			output.print();
