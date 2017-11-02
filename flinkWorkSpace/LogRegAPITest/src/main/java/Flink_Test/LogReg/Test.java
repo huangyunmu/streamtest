@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.flink.api.common.functions.FoldFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.core.fs.FileSystem.WriteMode;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class Test {
@@ -85,22 +85,24 @@ public class Test {
 		for (int i = 0; i < 2; i++) {
 			paramsList.add(weight[i]);
 		}
+		KeyedStream ks = dataStream.keyBy("label");
+
+		
+		// KeyedStream<>
+
 		DataStream<String> output;
-//		DataStream<Float> output = env.fromCollection(paramsList);
-		
-		
-//		output=dataStream.fold("start", new FoldFunction<Integer, Float>() {
-//		    @Override
-//		    public String fold(String current, Float value) {
-//		        return current + "-" + value;
-//		    }
-//		  });
-	    
-				
-		
-		
+
+		// DataStream<Float> output = env.fromCollection(paramsList);
+
+		// output=dataStream.fold("start", new FoldFunction<Integer, Float>() {
+		// @Override
+		// public String fold(String current, Float value) {
+		// return current + "-" + value;
+		// }
+		// });
+
 		if (inputParams.has("output")) {
-			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
+			ks.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
 			System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
