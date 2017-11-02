@@ -14,7 +14,7 @@ public class Test {
 	// "D:\\VM\\Sharefolder\\Data\\Stream\\logistic.txt";
 	static int INPUT_DATA_SIZE = 3;
 	static Float LEARNIN_RATE = 0.01f;
-	static int PARALLELISM=1;
+	static int PARALLELISM = 1;
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -23,7 +23,8 @@ public class Test {
 		final ParameterTool inputParams = ParameterTool.fromArgs(args);
 
 		// set up the execution environment
-		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment().setParallelism(PARALLELISM);
+		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()
+				.setParallelism(PARALLELISM);
 
 		// make parameters available in the web interface
 		env.getConfig().setGlobalJobParameters(inputParams);
@@ -59,6 +60,7 @@ public class Test {
 				ArrayList<Float> tempList = new ArrayList<Float>();
 				Float tempLabel;
 				for (int i = 0; i < dim - 1; i++) {
+					System.out.println(temp[i]);
 					tempList.add(temp[i]);
 				}
 				tempLabel = temp[dim - 1];
@@ -76,12 +78,11 @@ public class Test {
 		});
 
 		if (inputParams.has("output")) {
-			// parameters.writeAsText(inputParams.get("output"));
-			// floatData.writeAsCsv(params.get("output"));
+
 			System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
-			// output.print();
+
 		}
 
 		env.execute("My Log Reg Test");
