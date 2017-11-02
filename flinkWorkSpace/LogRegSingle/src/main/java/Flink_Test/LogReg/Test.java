@@ -2,9 +2,12 @@ package Flink_Test.LogReg;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.utils.ParameterTool;
+import org.apache.flink.core.fs.FileSystem.WriteMode;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
@@ -77,8 +80,15 @@ public class Test {
 			}
 		});
 
-		if (inputParams.has("output")) {
+		List<Float> paramsList = new LinkedList<Float>();
+		for (int i = 0; i < 2; i++) {
+			paramsList.add(weight[i]);
+		}
 
+		DataStream<Float> output = env.fromCollection(paramsList);
+
+		if (inputParams.has("output")) {
+			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
 			System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
