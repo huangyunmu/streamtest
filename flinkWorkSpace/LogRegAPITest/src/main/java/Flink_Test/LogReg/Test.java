@@ -98,7 +98,7 @@ public class Test {
 		});
 
 		KeyedStream ks = sumStream.keyBy(0);
-		DataStream<String> output = ks.reduce(new ReduceFunction<Float>() {
+		DataStream<Float> output = ks.reduce(new ReduceFunction<Float>() {
 		    public Float reduce(Float value1, Float value2)
 		    throws Exception {
 		        return value1 + value2;
