@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.common.functions.ReduceFunction;
+import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.core.fs.FileSystem.WriteMode;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -50,48 +52,58 @@ public class Test {
 			}
 		});
 
-		final Float[] weight = { 0.0f, 0.0f };
-
 		// Transform the data from string to float
-		DataStream<DataRecord> dataStream;
-		dataStream = strData.map(new MapFunction<String[], DataRecord>() {
-			public DataRecord map(String[] value) throws Exception {
-				Float[] temp = new Float[value.length];
+		DataStream<Tuple2<Integer, Float[]>> dataStream;
+		dataStream = strData.map(new MapFunction<String[], Tuple2<Integer, Float[]>>() {
+
+			private static final long serialVersionUID = 1L;
+
+			public Tuple2<Integer, Float[]> map(String[] value) throws Exception {
+				// TODO Auto-generated method stub
+				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
+				Float[] tempFeature = new Float[value.length];
 				int dim = value.length;
 				for (int i = 0; i < dim; i++) {
-					temp[i] = Float.parseFloat(value[i]);
+					tempFeature[i] = Float.parseFloat(value[i]);
 				}
-				ArrayList<Float> tempList = new ArrayList<Float>();
-				Float tempLabel;
-				for (int i = 0; i < dim - 1; i++) {
-					System.out.println(temp[i]);
-					tempList.add(temp[i]);
-				}
-				tempLabel = temp[dim - 1];
-				DataRecord tempDr = new DataRecord(tempList, tempLabel);
-				// Didn't work
-				Float lire = LogRegression.innerProduct(weight, tempDr.getDataList());
-				Float out = LogRegression.sigmoid(lire);
-				Float error = tempDr.getLabel() - out;
-				for (int d = 0; d < dim; d++) {
-					weight[d] += LEARNIN_RATE * error * tempDr.getDataList().get(d);
-				}
-				System.out.println("Current Weight:" + Arrays.toString(weight));
-				return tempDr;
+				// Label
+				tempTuple.f0 = Integer.parseInt(value[dim]);
+				// Feature
+				tempTuple.f1 = tempFeature;
+				return tempTuple;
 			}
-		});
 
-		List<Float> paramsList = new LinkedList<Float>();
-		for (int i = 0; i < 2; i++) {
-			paramsList.add(weight[i]);
-		}
-		KeyedStream ks = dataStream.keyBy("label");
+		});
+		DataStream<Tuple2<Integer, Float>> sumStream;
+		sumStream=dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,Tuple2<Integer, Float>>(){
 
 		
-		// KeyedStream<>
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 
-		DataStream<String> output;
+			public Tuple2<Integer, Float> map(Tuple2<Integer, Float[]> data) throws Exception {
+				// TODO Auto-generated method stub
+				Float sum=0F;
+				for(int i=0;i<data.f1.length;i++){
+					sum=sum+data.f1[i];
+				}
+				Tuple2<Integer,Float> tempTuple=new Tuple2<Integer,Float>();
+				tempTuple.f0=data.f0;
+				tempTuple.f1=sum;
+				return tempTuple;
+			}
+			
+		});
 
+		KeyedStream ks = sumStream.keyBy(0);
+		DataStream<String> output = ks.reduce(new ReduceFunction<Float>() {
+		    public Float reduce(Float value1, Float value2)
+		    throws Exception {
+		        return value1 + value2;
+		    }
+		});
 		// DataStream<Float> output = env.fromCollection(paramsList);
 
 		// output=dataStream.fold("start", new FoldFunction<Integer, Float>() {
@@ -102,10 +114,11 @@ public class Test {
 		// });
 
 		if (inputParams.has("output")) {
-			ks.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
-			System.out.println("Final Weight:" + Arrays.toString(weight));
+			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
+			// System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
-			System.out.println("Printing result to stdout. Use --output to specify output path.");
+			// System.out.println("Printing result to stdout. Use --output to
+			// specify output path.");
 
 		}
 
