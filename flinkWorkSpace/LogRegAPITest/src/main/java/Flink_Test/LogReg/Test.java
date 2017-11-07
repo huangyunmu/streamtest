@@ -108,7 +108,7 @@ public class Test {
 			// System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
-
+            text.print();
 		}
 
 		env.execute("My Log Reg Test");
