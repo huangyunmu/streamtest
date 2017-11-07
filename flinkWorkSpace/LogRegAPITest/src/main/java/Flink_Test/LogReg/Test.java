@@ -102,7 +102,7 @@ public class Test {
 				return value1 + value2;
 			}
 		});
-
+		env.execute("My Log Reg Test");
 		if (inputParams.has("output")) {
 			text.writeAsText(inputParams.get("output"));
 			// System.out.println("Final Weight:" + Arrays.toString(weight));
@@ -111,7 +111,7 @@ public class Test {
             text.print();
 		}
 
-		env.execute("My Log Reg Test");
+		
 	}
 
 }
