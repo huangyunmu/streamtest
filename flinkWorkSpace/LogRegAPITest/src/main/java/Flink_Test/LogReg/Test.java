@@ -23,11 +23,11 @@ public class Test {
 		final ParameterTool inputParams = ParameterTool.fromArgs(args);
 
 		// set up the execution environment
-		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
 		// final StreamExecutionEnvironment env =
-		// StreamExecutionEnvironment.getExecutionEnvironment()
-		// .setParallelism(PARALLELISM);
+		// StreamExecutionEnvironment.getExecutionEnvironment();
+
+		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()
+				.setParallelism(PARALLELISM);
 
 		// make parameters available in the web interface
 		env.getConfig().setGlobalJobParameters(inputParams);
@@ -58,7 +58,7 @@ public class Test {
 			public Tuple2<Integer, Float[]> map(String[] value) throws Exception {
 				// TODO Auto-generated method stub
 				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
-				Float[] tempFeature = new Float[value.length];
+				Float[] tempFeature = new Float[value.length - 1];
 				int dim = value.length;
 				for (int i = 0; i < dim; i++) {
 					tempFeature[i] = Float.parseFloat(value[i]);
