@@ -75,9 +75,8 @@ public class Test {
 
 		});
 		DataStream<Tuple2<Integer, Float>> sumStream;
-		sumStream=dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,Tuple2<Integer, Float>>(){
+		sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, Tuple2<Integer, Float>>() {
 
-		
 			/**
 			 * 
 			 */
@@ -85,32 +84,30 @@ public class Test {
 
 			public Tuple2<Integer, Float> map(Tuple2<Integer, Float[]> data) throws Exception {
 				// TODO Auto-generated method stub
-				Float sum=0F;
-				for(int i=0;i<data.f1.length;i++){
-					sum=sum+data.f1[i];
+				Float sum = 0F;
+				for (int i = 0; i < data.f1.length; i++) {
+					sum = sum + data.f1[i];
 				}
-				Tuple2<Integer,Float> tempTuple=new Tuple2<Integer,Float>();
-				tempTuple.f0=data.f0;
-				tempTuple.f1=sum;
+				Tuple2<Integer, Float> tempTuple = new Tuple2<Integer, Float>();
+				tempTuple.f0 = data.f0;
+				tempTuple.f1 = sum;
 				return tempTuple;
 			}
-			
+
 		});
 
 		KeyedStream ks = sumStream.keyBy(0);
 		DataStream<Float> output = ks.reduce(new ReduceFunction<Float>() {
-		    public Float reduce(Float value1, Float value2)
-		    throws Exception {
-		        return value1 + value2;
-		    }
+			public Float reduce(Float value1, Float value2) throws Exception {
+				return value1 + value2;
+			}
 		});
 
 		if (inputParams.has("output")) {
 			strData.writeAsText(inputParams.get("output"));
 			// System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
-			// System.out.println("Printing result to stdout. Use --output to
-			// specify output path.");
+			System.out.println("Printing result to stdout. Use --output to specify output path.");
 
 		}
 
