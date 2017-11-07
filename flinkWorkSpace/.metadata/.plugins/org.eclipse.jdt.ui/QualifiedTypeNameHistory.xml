@@ -7,4 +7,7 @@
 <fullyQualifiedTypeName name="LogRegBatch.LogRegBatch.LinearRegression.Data"/>
 <fullyQualifiedTypeName name="LogRegBatch.LogRegBatch.LinearRegression.Params"/>
 <fullyQualifiedTypeName name="org.apache.flink.api.java.ExecutionEnvironment"/>
+<fullyQualifiedTypeName name="org.apache.flink.api.java.tuple.Tuple2"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="org.apache.flink.api.common.functions.ReduceFunction"/>
 </qualifiedTypeNameHistroy>

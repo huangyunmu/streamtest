@@ -104,17 +104,9 @@ public class Test {
 		        return value1 + value2;
 		    }
 		});
-		// DataStream<Float> output = env.fromCollection(paramsList);
-
-		// output=dataStream.fold("start", new FoldFunction<Integer, Float>() {
-		// @Override
-		// public String fold(String current, Float value) {
-		// return current + "-" + value;
-		// }
-		// });
 
 		if (inputParams.has("output")) {
-			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
+			dataStream.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
 			// System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			// System.out.println("Printing result to stdout. Use --output to
