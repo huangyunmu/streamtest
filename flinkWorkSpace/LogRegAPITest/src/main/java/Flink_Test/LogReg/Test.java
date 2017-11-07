@@ -39,7 +39,6 @@ public class Test {
 			// read the text file from given input path
 			text = env.readTextFile(inputParams.get("input"));
 		} else {
-			System.out.println("Executing WordCount example with default input data set.");
 			System.out.println("Use --input to specify file input.");
 			// get default test text data
 		}
