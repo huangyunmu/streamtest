@@ -29,8 +29,11 @@ public class Test {
 		final ParameterTool inputParams = ParameterTool.fromArgs(args);
 
 		// set up the execution environment
-		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()
-				.setParallelism(PARALLELISM);
+		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+
+		// final StreamExecutionEnvironment env =
+		// StreamExecutionEnvironment.getExecutionEnvironment()
+		// .setParallelism(PARALLELISM);
 
 		// make parameters available in the web interface
 		env.getConfig().setGlobalJobParameters(inputParams);
@@ -101,17 +104,16 @@ public class Test {
 				return value1 + value2;
 			}
 		});
-		
+
 		if (inputParams.has("output")) {
 			text.writeAsText(inputParams.get("output"));
 			// System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
-            text.print();
+			text.print();
 		}
 		env.execute("My Log Reg Test");
 
-		
 	}
 
 }

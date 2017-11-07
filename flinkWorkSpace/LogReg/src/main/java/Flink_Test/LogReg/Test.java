@@ -197,8 +197,10 @@ public class Test {
 			Float[] weight=this.parameter.toFloat();
 			Float lire=LogRegression.innerProduct(weight, dr.getDataList());
 			
-			Float theta0 = parameter.theta0 - 0.01 * ((parameter.theta0 + (parameter.theta1 * dr.x)) - dr.y);
-			Float theta1 = parameter.theta1 - 0.01 * (((parameter.theta0 + (parameter.theta1 * dr.x)) - dr.y) * dr.x);
+			Float theta0=0F;
+//			= parameter.theta0 - 0.01 * ((parameter.theta0 + (parameter.theta1 * dr.x)) - dr.y);
+			Float theta1=0F;
+//			= parameter.theta1 - 0.01 * (((parameter.theta0 + (parameter.theta1 * dr.x)) - dr.y) * dr.x);
 
 			return new Tuple2<Params, Integer>(new Params(theta0, theta1), count);
 		}
