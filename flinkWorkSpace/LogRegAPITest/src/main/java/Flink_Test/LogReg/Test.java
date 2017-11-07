@@ -106,7 +106,7 @@ public class Test {
 		});
 
 		if (inputParams.has("output")) {
-			dataStream.writeAsText(inputParams.get("output"));
+			strData.writeAsText(inputParams.get("output"));
 			// System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			// System.out.println("Printing result to stdout. Use --output to
