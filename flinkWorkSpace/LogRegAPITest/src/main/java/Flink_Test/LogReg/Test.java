@@ -44,6 +44,7 @@ public class Test {
 		DataStream<String[]> strData;
 		strData = text.map(new MapFunction<String, String[]>() {
 			public String[] map(String value) throws Exception {
+				System.out.println(value);
 				return value.split("\t");
 			}
 		});
