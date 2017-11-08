@@ -50,30 +50,28 @@ public class Test {
 			}
 		});
 		//
-		// // Transform the data from string to float
-		// DataStream<Tuple2<Integer, Float[]>> dataStream;
-		// dataStream = strData.map(new MapFunction<String[], Tuple2<Integer,
-		// Float[]>>() {
-		//
-		// private static final long serialVersionUID = 1L;
-		//
-		// public Tuple2<Integer, Float[]> map(String[] value) throws Exception
-		// {
-		// // TODO Auto-generated method stub
-		// Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
-		// Float[] tempFeature = new Float[value.length - 1];
-		// int dim = value.length;
-		// for (int i = 0; i < dim; i++) {
-		// tempFeature[i] = Float.parseFloat(value[i]);
-		// }
-		// // Label
-		// tempTuple.f0 = Integer.parseInt(value[dim]);
-		// // Feature
-		// tempTuple.f1 = tempFeature;
-		// return tempTuple;
-		// }
-		//
-		// });
+		// Transform the data from string to float
+		DataStream<Tuple2<Integer, Float[]>> dataStream;
+		dataStream = strData.map(new MapFunction<String[], Tuple2<Integer, Float[]>>() {
+
+			private static final long serialVersionUID = 1L;
+
+			public Tuple2<Integer, Float[]> map(String[] value) throws Exception {
+				// TODO Auto-generated method stub
+				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
+				Float[] tempFeature = new Float[value.length - 1];
+				int dim = value.length;
+				for (int i = 0; i < dim; i++) {
+					tempFeature[i] = Float.parseFloat(value[i]);
+				}
+				// Label
+				tempTuple.f0 = Integer.parseInt(value[dim]);
+				// Feature
+				tempTuple.f1 = tempFeature;
+				return tempTuple;
+			}
+
+		});
 		// DataStream<Tuple2<Integer, Float>> sumStream;
 		// sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
 		// Tuple2<Integer, Float>>() {
@@ -105,17 +103,34 @@ public class Test {
 		// }
 		// });
 
+		
+		
+//		DataStream<String> output;
+//		output = strData.map(new MapFunction<String[], String>() {
+//			public String map(String[] value) throws Exception {
+//				String temp="";
+//				for(int i=0;i<value.length;i++){
+//					temp=temp+value[i]+"|";
+//				}
+//				
+//				return temp;
+//			}
+//		});
+		
 		DataStream<String> output;
-		output = strData.map(new MapFunction<String[], String>() {
-			public String map(String[] value) throws Exception {
+		output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, String>() {
+			public String map(Tuple2<Integer, Float[]> value) throws Exception {
 				String temp="";
-				for(int i=0;i<value.length;i++){
-					temp=temp+value[i]+"|";
+				temp=temp+value.f0;
+				for(int i=0;i<value.f1.length;i++){
+					temp=temp+value.f1[i]+"|";
 				}
 				
 				return temp;
 			}
 		});
+		
+		
 
 		if (inputParams.has("output")) {
 			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
