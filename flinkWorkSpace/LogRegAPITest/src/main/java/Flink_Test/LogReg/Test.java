@@ -41,14 +41,14 @@ public class Test {
 			// get default test text data
 		}
 
-		 // Get the data from txt file
-		 DataStream<String[]> strData;
-		 strData = text.map(new MapFunction<String, String[]>() {
-		 public String[] map(String value) throws Exception {
-		 System.out.println(value);
-		 return value.split("\t");
-		 }
-		 });
+		// Get the data from txt file
+		DataStream<String[]> strData;
+		strData = text.map(new MapFunction<String, String[]>() {
+			public String[] map(String value) throws Exception {
+				System.out.println(value);
+				return value.split("\t");
+			}
+		});
 		//
 		// // Transform the data from string to float
 		// DataStream<Tuple2<Integer, Float[]>> dataStream;
@@ -105,8 +105,20 @@ public class Test {
 		// }
 		// });
 
+		DataStream<String> output;
+		output = strData.map(new MapFunction<String[], String>() {
+			public String map(String[] value) throws Exception {
+				String temp="";
+				for(int i=0;i<value.length;i++){
+					temp=temp+value[i]+"|";
+				}
+				
+				return temp;
+			}
+		});
+
 		if (inputParams.has("output")) {
-			strData.writeAsText(inputParams.get("output"),WriteMode.OVERWRITE);
+			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
 			// System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
