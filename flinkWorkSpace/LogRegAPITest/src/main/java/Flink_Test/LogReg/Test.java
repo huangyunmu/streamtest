@@ -125,7 +125,7 @@ public class Test {
 				for(int i=0;i<value.f1.length;i++){
 					temp=temp+value.f1[i]+"|";
 				}
-				
+				System.out.println(temp);
 				return temp;
 			}
 		});
