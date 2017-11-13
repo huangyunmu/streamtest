@@ -1,12 +1,16 @@
 package Flink_Test.LogReg;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.core.fs.FileSystem.WriteMode;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class Test {
@@ -22,14 +26,19 @@ public class Test {
 
 		// Checking input parameters
 		final ParameterTool inputParams = ParameterTool.fromArgs(args);
-
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+		String timeStamp=df.format(new Date());
+        String logFileName="\\data\\opt\\course\\1155086998\\data\\api-test-log";
+        File file=new File(logFileName+timeStamp+".txt");
+        final BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 		// set up the execution environment
 		// final StreamExecutionEnvironment env =
 		// StreamExecutionEnvironment.getExecutionEnvironment();
-
+        bw.write("Program Start");
+        bw.newLine();
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()
 				.setParallelism(PARALLELISM);
-
+        
 		// make parameters available in the web interface
 		env.getConfig().setGlobalJobParameters(inputParams);
 		DataStream<String> text = null;
@@ -59,15 +68,18 @@ public class Test {
 			public Tuple2<Integer, Float[]> map(String[] value) throws Exception {
 				// TODO Auto-generated method stub
 				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
-				Float[] tempFeature = new Float[value.length - 1];
-				int dim = value.length;
+				int dim = value.length - 1;
+				// Label
+				tempTuple.f0 = Integer.parseInt(value[dim + 1]);
+				// Feature
+				Float[] tempFeature = new Float[dim];
 				for (int i = 0; i < dim; i++) {
 					tempFeature[i] = Float.parseFloat(value[i]);
 				}
-				// Label
-				tempTuple.f0 = Integer.parseInt(value[dim]);
-				// Feature
 				tempTuple.f1 = tempFeature;
+				bw.write(tempTuple.f0+" "+tempTuple.f1);
+				bw.newLine();
+				System.out.println("New tuple");
 				return tempTuple;
 			}
 
@@ -103,34 +115,30 @@ public class Test {
 		// }
 		// });
 
-		
-		
-//		DataStream<String> output;
-//		output = strData.map(new MapFunction<String[], String>() {
-//			public String map(String[] value) throws Exception {
-//				String temp="";
-//				for(int i=0;i<value.length;i++){
-//					temp=temp+value[i]+"|";
-//				}
-//				
-//				return temp;
-//			}
-//		});
-		
+		// DataStream<String> output;
+		// output = strData.map(new MapFunction<String[], String>() {
+		// public String map(String[] value) throws Exception {
+		// String temp="";
+		// for(int i=0;i<value.length;i++){
+		// temp=temp+value[i]+"|";
+		// }
+		//
+		// return temp;
+		// }
+		// });
+
 		DataStream<String> output;
 		output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, String>() {
 			public String map(Tuple2<Integer, Float[]> value) throws Exception {
-				String temp="";
-				temp=temp+value.f0;
-				for(int i=0;i<value.f1.length;i++){
-					temp=temp+value.f1[i]+"|";
+				String temp = "";
+				temp = temp + value.f0;
+				for (int i = 0; i < value.f1.length; i++) {
+					temp = temp + value.f1[i] + "|";
 				}
 				System.out.println(temp);
 				return temp;
 			}
 		});
-		
-		
 
 		if (inputParams.has("output")) {
 			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
@@ -140,7 +148,9 @@ public class Test {
 			text.print();
 		}
 		env.execute("My Log Reg Test");
-
+		bw.write("Program End");
+        bw.newLine();
+		bw.close();
 	}
 
 }
