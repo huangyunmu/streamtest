@@ -54,34 +54,34 @@ public class Test {
 		DataStream<String[]> strData;
 		strData = text.map(new MapFunction<String, String[]>() {
 			public String[] map(String value) throws Exception {
-				System.out.println(value);
 				return value.split("\t");
 			}
 		});
 
 		// Convert string to tuple
-		DataStream<Tuple2<Integer, Float[]>> dataStream;
-		dataStream = text.map(new MapFunction<String, Tuple2<Integer, Float[]>>() {
-
-			private static final long serialVersionUID = 1L;
-
-			public Tuple2<Integer, Float[]> map(String value) throws Exception {
-				// TODO Auto-generated method stub
-				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
-				String[] split = value.split("\t");
-				int dim = split.length - 1;
-				// Label
-				tempTuple.f0 = Integer.parseInt(split[dim + 1]);
-				// Feature
-				Float[] tempFeature = new Float[dim];
-				for (int i = 0; i < dim; i++) {
-					tempFeature[i] = Float.parseFloat(split[i]);
-				}
-				tempTuple.f1 = tempFeature;
-				return tempTuple;
-			}
-
-		});
+		// DataStream<Tuple2<Integer, Float[]>> dataStream;
+		// dataStream = text.map(new MapFunction<String, Tuple2<Integer,
+		// Float[]>>() {
+		//
+		// private static final long serialVersionUID = 1L;
+		//
+		// public Tuple2<Integer, Float[]> map(String value) throws Exception {
+		// // TODO Auto-generated method stub
+		// Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
+		// String[] split = value.split("\t");
+		// int dim = split.length - 1;
+		// // Label
+		// tempTuple.f0 = Integer.parseInt(split[dim + 1]);
+		// // Feature
+		// Float[] tempFeature = new Float[dim];
+		// for (int i = 0; i < dim; i++) {
+		// tempFeature[i] = Float.parseFloat(split[i]);
+		// }
+		// tempTuple.f1 = tempFeature;
+		// return tempTuple;
+		// }
+		//
+		// });
 
 		// Transform the data from string to float
 		// DataStream<Tuple2<Integer, Float[]>> dataStream;
