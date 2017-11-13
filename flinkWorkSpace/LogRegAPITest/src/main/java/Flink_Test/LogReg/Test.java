@@ -51,12 +51,12 @@ public class Test {
 		}
 
 		// Get the data from txt file
-		DataStream<String[]> strData;
-		strData = text.map(new MapFunction<String, String[]>() {
-			public String[] map(String value) throws Exception {
-				return value.split("\t");
-			}
-		});
+//		DataStream<String[]> strData;
+//		strData = text.map(new MapFunction<String, String[]>() {
+//			public String[] map(String value) throws Exception {
+//				return value.split("\t");
+//			}
+//		});
 
 		// Convert string to tuple
 		DataStream<Tuple2<Integer, Float[]>> dataStream;
@@ -67,16 +67,18 @@ public class Test {
 			public Tuple2<Integer, Float[]> map(String value) throws Exception {
 				// TODO Auto-generated method stub
 				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
-				String[] split = value.split("\t");
-				int dim = split.length - 1;
-				// Label
-				tempTuple.f0 = Integer.parseInt(split[dim + 1]);
-				// Feature
-				Float[] tempFeature = new Float[dim];
-				for (int i = 0; i < dim; i++) {
-					tempFeature[i] = Float.parseFloat(split[i]);
-				}
-				tempTuple.f1 = tempFeature;
+				tempTuple.f0=1;
+				tempTuple.f1=new Float[]{2f,3f};
+				// String[] split = value.split("\t");
+				// int dim = split.length - 1;
+				// // Label
+				// tempTuple.f0 = Integer.parseInt(split[dim + 1]);
+				// // Feature
+				// Float[] tempFeature = new Float[dim];
+				// for (int i = 0; i < dim; i++) {
+				// tempFeature[i] = Float.parseFloat(split[i]);
+				// }
+				// tempTuple.f1 = tempFeature;
 				return tempTuple;
 			}
 
@@ -137,41 +139,40 @@ public class Test {
 		// }
 		// });
 
+//		DataStream<String> output;
+//		output = strData.map(new MapFunction<String[], String>() {
+//			/**
+//			 * 
+//			 */
+//			private static final long serialVersionUID = 1L;
+//
+//			public String map(String[] value) throws Exception {
+//				String temp = "";
+//				for (int i = 0; i < value.length; i++) {
+//					temp = temp + value[i] + "|";
+//				}
+//                temp=temp+"Andy Test";
+//				return temp;
+//			}
+//		});
+
 		DataStream<String> output;
-		output = strData.map(new MapFunction<String[], String>() {
+		output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, String>() {
 			/**
-			 * 
-			 */
+			*
+			*/
 			private static final long serialVersionUID = 1L;
 
-			public String map(String[] value) throws Exception {
+			public String map(Tuple2<Integer, Float[]> value) throws Exception {
 				String temp = "";
-				for (int i = 0; i < value.length; i++) {
-					temp = temp + value[i] + "|";
+				for (int i = 0; i < value.f1.length; i++) {
+					temp = temp + value.f1[i] + "|";
 				}
-                temp=temp+"Andy Test";
+				temp = temp + value.f0;
+				System.out.println(temp);
 				return temp;
 			}
 		});
-
-		// DataStream<String> output;
-		// output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
-		// String>() {
-		// /**
-		// *
-		// */
-		// private static final long serialVersionUID = 1L;
-		//
-		// public String map(Tuple2<Integer, Float[]> value) throws Exception {
-		// String temp = "";
-		// for (int i = 0; i < value.f1.length; i++) {
-		// temp = temp + value.f1[i] + "|";
-		// }
-		// temp = temp + value.f0;
-		// System.out.println(temp);
-		// return temp;
-		// }
-		// });
 
 		if (inputParams.has("output")) {
 			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
