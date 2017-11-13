@@ -74,7 +74,7 @@ public class Test {
 				// Label
 				// tempTuple.f0 =
 				// Integer.parseInt(value.substring(value.length()-1));
-				tempTuple.f0 = Integer.parseInt(split[dim]);
+				tempTuple.f0 = dim;
 				// Feature
 				Float[] tempFeature = new Float[dim];
 				for (int i = 0; i < dim; i++) {
