@@ -148,9 +148,9 @@ public class Test {
 			public String map(String[] value) throws Exception {
 				String temp = "";
 				for (int i = 0; i < value.length; i++) {
-					temp = temp + value[i] + "|"+Math.random()+" AndyTest";
+					temp = temp + value[i] + "|";
 				}
-
+                temp=temp+"Andy Test";
 				return temp;
 			}
 		});
