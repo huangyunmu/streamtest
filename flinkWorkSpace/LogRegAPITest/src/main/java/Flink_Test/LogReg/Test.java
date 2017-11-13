@@ -69,7 +69,7 @@ public class Test {
 				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
 				// tempTuple.f0 = value.length();
 				// tempTuple.f1 = new Float[] { 2f, 3f };
-				String[] split = value.split("       ");
+				String[] split = value.split(" ");
 				int dim = split.length - 1;
 				// Label
 				// tempTuple.f0 =
