@@ -34,7 +34,7 @@ public class Test {
 		// set up the execution environment
 		// final StreamExecutionEnvironment env =
 		// StreamExecutionEnvironment.getExecutionEnvironment();
-		bw.write("Program Start at :"+df.format(new Date()));
+		bw.write("Program Start at :" + df.format(new Date()));
 		bw.newLine();
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()
 				.setParallelism(PARALLELISM);
@@ -51,13 +51,13 @@ public class Test {
 		}
 
 		// Get the data from txt file
-		// DataStream<String[]> strData;
-		// strData = text.map(new MapFunction<String, String[]>() {
-		// public String[] map(String value) throws Exception {
-		// System.out.println(value);
-		// return value.split("\t");
-		// }
-		// });
+		DataStream<String[]> strData;
+		strData = text.map(new MapFunction<String, String[]>() {
+			public String[] map(String value) throws Exception {
+				System.out.println(value);
+				return value.split("\t");
+			}
+		});
 
 		// Convert string to tuple
 		DataStream<Tuple2<Integer, Float[]>> dataStream;
@@ -138,35 +138,41 @@ public class Test {
 		// }
 		// });
 
-		// DataStream<String> output;
-		// output = strData.map(new MapFunction<String[], String>() {
-		// public String map(String[] value) throws Exception {
-		// String temp="";
-		// for(int i=0;i<value.length;i++){
-		// temp=temp+value[i]+"|";
-		// }
-		//
-		// return temp;
-		// }
-		// });
-
 		DataStream<String> output;
-		output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, String>() {
+		output = strData.map(new MapFunction<String[], String>() {
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
 
-			public String map(Tuple2<Integer, Float[]> value) throws Exception {
+			public String map(String[] value) throws Exception {
 				String temp = "";
-				for (int i = 0; i < value.f1.length; i++) {
-					temp = temp + value.f1[i] + "|";
+				for (int i = 0; i < value.length; i++) {
+					temp = temp + value[i] + "|";
 				}
-				temp = temp + value.f0;
-				System.out.println(temp);
+
 				return temp;
 			}
 		});
+
+		// DataStream<String> output;
+		// output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
+		// String>() {
+		// /**
+		// *
+		// */
+		// private static final long serialVersionUID = 1L;
+		//
+		// public String map(Tuple2<Integer, Float[]> value) throws Exception {
+		// String temp = "";
+		// for (int i = 0; i < value.f1.length; i++) {
+		// temp = temp + value.f1[i] + "|";
+		// }
+		// temp = temp + value.f0;
+		// System.out.println(temp);
+		// return temp;
+		// }
+		// });
 
 		if (inputParams.has("output")) {
 			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
@@ -176,7 +182,7 @@ public class Test {
 			text.print();
 		}
 		env.execute("My Log Reg Test");
-		bw.write("Program End at :"+df.format(new Date()));
+		bw.write("Program End at :" + df.format(new Date()));
 		bw.newLine();
 		bw.close();
 	}
