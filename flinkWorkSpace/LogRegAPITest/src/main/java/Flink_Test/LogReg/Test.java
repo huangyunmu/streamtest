@@ -28,7 +28,7 @@ public class Test {
 		final ParameterTool inputParams = ParameterTool.fromArgs(args);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		String timeStamp=df.format(new Date());
-        String logFileName="\\data\\opt\\course\\1155086998\\data\\api-test-log";
+        String logFileName="api-test-log";
         File file=new File(logFileName+timeStamp+".txt");
         final BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 		// set up the execution environment
