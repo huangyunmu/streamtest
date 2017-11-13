@@ -27,18 +27,18 @@ public class Test {
 		// Checking input parameters
 		final ParameterTool inputParams = ParameterTool.fromArgs(args);
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-		String timeStamp=df.format(new Date());
-        String logFileName="log/api-test-log-";
-        File file=new File(logFileName+timeStamp+".txt");
-        final BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+		String timeStamp = df.format(new Date());
+		String logFileName = "log/api-test-log-";
+		File file = new File(logFileName + timeStamp + ".txt");
+		final BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 		// set up the execution environment
 		// final StreamExecutionEnvironment env =
 		// StreamExecutionEnvironment.getExecutionEnvironment();
-        bw.write("Program Start");
-        bw.newLine();
+		bw.write("Program Start at :"+df.format(new Date()));
+		bw.newLine();
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()
 				.setParallelism(PARALLELISM);
-        
+
 		// make parameters available in the web interface
 		env.getConfig().setGlobalJobParameters(inputParams);
 		DataStream<String> text = null;
@@ -51,39 +51,62 @@ public class Test {
 		}
 
 		// Get the data from txt file
-		DataStream<String[]> strData;
-		strData = text.map(new MapFunction<String, String[]>() {
-			public String[] map(String value) throws Exception {
-				System.out.println(value);
-				return value.split("\t");
-			}
-		});
-		//
-		// Transform the data from string to float
+		// DataStream<String[]> strData;
+		// strData = text.map(new MapFunction<String, String[]>() {
+		// public String[] map(String value) throws Exception {
+		// System.out.println(value);
+		// return value.split("\t");
+		// }
+		// });
+
+		// Convert string to tuple
 		DataStream<Tuple2<Integer, Float[]>> dataStream;
-		dataStream = strData.map(new MapFunction<String[], Tuple2<Integer, Float[]>>() {
+		dataStream = text.map(new MapFunction<String, Tuple2<Integer, Float[]>>() {
 
 			private static final long serialVersionUID = 1L;
 
-			public Tuple2<Integer, Float[]> map(String[] value) throws Exception {
+			public Tuple2<Integer, Float[]> map(String value) throws Exception {
 				// TODO Auto-generated method stub
 				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
-				int dim = value.length - 1;
+				String[] split = value.split("\t");
+				int dim = split.length - 1;
 				// Label
-				tempTuple.f0 = Integer.parseInt(value[dim + 1]);
+				tempTuple.f0 = Integer.parseInt(split[dim + 1]);
 				// Feature
 				Float[] tempFeature = new Float[dim];
 				for (int i = 0; i < dim; i++) {
-					tempFeature[i] = Float.parseFloat(value[i]);
+					tempFeature[i] = Float.parseFloat(split[i]);
 				}
 				tempTuple.f1 = tempFeature;
-//				bw.write(tempTuple.f0+" "+tempTuple.f1);
-//				bw.newLine();
-				System.out.println("New tuple");
 				return tempTuple;
 			}
 
 		});
+
+		// Transform the data from string to float
+		// DataStream<Tuple2<Integer, Float[]>> dataStream;
+		// dataStream = strData.map(new MapFunction<String[], Tuple2<Integer,
+		// Float[]>>() {
+		//
+		// private static final long serialVersionUID = 1L;
+		//
+		// public Tuple2<Integer, Float[]> map(String[] value) throws Exception
+		// {
+		// // TODO Auto-generated method stub
+		// Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
+		// int dim = value.length - 1;
+		// // Label
+		// tempTuple.f0 = Integer.parseInt(value[dim + 1]);
+		// // Feature
+		// Float[] tempFeature = new Float[dim];
+		// for (int i = 0; i < dim; i++) {
+		// tempFeature[i] = Float.parseFloat(value[i]);
+		// }
+		// tempTuple.f1 = tempFeature;
+		// return tempTuple;
+		// }
+		//
+		// });
 		// DataStream<Tuple2<Integer, Float>> sumStream;
 		// sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
 		// Tuple2<Integer, Float>>() {
@@ -131,10 +154,10 @@ public class Test {
 		output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, String>() {
 			public String map(Tuple2<Integer, Float[]> value) throws Exception {
 				String temp = "";
-				temp = temp + value.f0;
 				for (int i = 0; i < value.f1.length; i++) {
 					temp = temp + value.f1[i] + "|";
 				}
+				temp = temp + value.f0;
 				System.out.println(temp);
 				return temp;
 			}
@@ -148,8 +171,8 @@ public class Test {
 			text.print();
 		}
 		env.execute("My Log Reg Test");
-		bw.write("Program End");
-        bw.newLine();
+		bw.write("Program End at :"+df.format(new Date()));
+		bw.newLine();
 		bw.close();
 	}
 
