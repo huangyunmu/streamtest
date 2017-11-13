@@ -69,12 +69,12 @@ public class Test {
 				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
 				// tempTuple.f0 = value.length();
 				// tempTuple.f1 = new Float[] { 2f, 3f };
-				String[] split = value.split("/t");
+				String[] split = value.split("       ");
 				int dim = split.length - 1;
 				// Label
 				// tempTuple.f0 =
 				// Integer.parseInt(value.substring(value.length()-1));
-				tempTuple.f0 = dim;
+				tempTuple.f0 = Integer.parseInt(split[dim]);
 				// Feature
 				Float[] tempFeature = new Float[dim];
 				for (int i = 0; i < dim; i++) {
