@@ -166,7 +166,7 @@ public class Test {
 			public String map(Tuple2<Integer, Float[]> value) throws Exception {
 				String temp = "";
 				for (int i = 0; i < value.f1.length; i++) {
-					temp = temp + value.f1[i] + "|";
+					temp = temp + value.f1[i] + " ";
 				}
 				temp = temp + value.f0;
 				System.out.println(temp);
