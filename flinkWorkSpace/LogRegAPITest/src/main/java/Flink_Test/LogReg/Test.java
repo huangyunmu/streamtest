@@ -152,6 +152,11 @@ public class Test {
 
 		DataStream<String> output;
 		output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, String>() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			public String map(Tuple2<Integer, Float[]> value) throws Exception {
 				String temp = "";
 				for (int i = 0; i < value.f1.length; i++) {
