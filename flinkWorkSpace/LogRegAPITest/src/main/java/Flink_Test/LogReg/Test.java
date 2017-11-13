@@ -77,8 +77,8 @@ public class Test {
 					tempFeature[i] = Float.parseFloat(value[i]);
 				}
 				tempTuple.f1 = tempFeature;
-				bw.write(tempTuple.f0+" "+tempTuple.f1);
-				bw.newLine();
+//				bw.write(tempTuple.f0+" "+tempTuple.f1);
+//				bw.newLine();
 				System.out.println("New tuple");
 				return tempTuple;
 			}
