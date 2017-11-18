@@ -2,7 +2,6 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.apache.flink.api.common.functions.MapFunction"/>
 <fullyQualifiedTypeName name="org.apache.flink.streaming.api.datastream.DataStreamSink"/>
-<fullyQualifiedTypeName name="org.apache.flink.api.java.DataSet"/>
 <fullyQualifiedTypeName name="org.apache.flink.util.Collector"/>
 <fullyQualifiedTypeName name="LogRegBatch.LogRegBatch.LinearRegression.Data"/>
 <fullyQualifiedTypeName name="LogRegBatch.LogRegBatch.LinearRegression.Params"/>
@@ -11,4 +10,7 @@
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="org.apache.flink.api.common.functions.ReduceFunction"/>
 <fullyQualifiedTypeName name="org.apache.flink.core.fs.FileSystem.WriteMode"/>
+<fullyQualifiedTypeName name="org.apache.flink.api.java.DataSet"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="com.sun.tools.javac.util.List"/>
 </qualifiedTypeNameHistroy>
