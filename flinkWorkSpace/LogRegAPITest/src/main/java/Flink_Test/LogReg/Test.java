@@ -110,29 +110,24 @@ public class Test {
 		// }
 		//
 		// });
-		// DataStream<Tuple2<Integer, Float>> sumStream;
-		// sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
-		// Tuple2<Integer, Float>>() {
-		//
-		// /**
-		// *
-		// */
-		// private static final long serialVersionUID = 1L;
-		//
-		// public Tuple2<Integer, Float> map(Tuple2<Integer, Float[]> data)
-		// throws Exception {
-		// // TODO Auto-generated method stub
-		// Float sum = 0F;
-		// for (int i = 0; i < data.f1.length; i++) {
-		// sum = sum + data.f1[i];
-		// }
-		// Tuple2<Integer, Float> tempTuple = new Tuple2<Integer, Float>();
-		// tempTuple.f0 = data.f0;
-		// tempTuple.f1 = sum;
-		// return tempTuple;
-		// }
-		//
-		// });
+		DataStream<Tuple2<Integer, Float>> sumStream;
+		sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, Tuple2<Integer, Float>>() {
+
+			private static final long serialVersionUID = 1L;
+
+			public Tuple2<Integer, Float> map(Tuple2<Integer, Float[]> data) throws Exception {
+				// TODO Auto-generated method stub
+				Float sum = 0F;
+				for (int i = 0; i < data.f1.length; i++) {
+					sum = sum + data.f1[i];
+				}
+				Tuple2<Integer, Float> tempTuple = new Tuple2<Integer, Float>();
+				tempTuple.f0 = data.f0;
+				tempTuple.f1 = sum;
+				return tempTuple;
+			}
+
+		});
 		//
 		// KeyedStream ks = sumStream.keyBy(0);
 		// DataStream<Float> output = ks.reduce(new ReduceFunction<Float>() {
@@ -159,19 +154,32 @@ public class Test {
 		// });
 
 		DataStream<String> output;
-		output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, String>() {
+		// output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
+		// String>() {
+		// /**
+		// *
+		// */
+		// private static final long serialVersionUID = 1L;
+		//
+		// public String map(Tuple2<Integer, Float[]> value) throws Exception {
+		// String temp = "Feature:";
+		// for (int i = 0; i < value.f1.length; i++) {
+		// temp = temp + value.f1[i] + " ### ";
+		// }
+		// temp = temp + " Label:" + value.f0;
+		// System.out.println(temp);
+		// return temp;
+		// }
+		// });
+		output = sumStream.map(new MapFunction<Tuple2<Integer, Float>, String>() {
 			/**
 			*
 			*/
 			private static final long serialVersionUID = 1L;
 
-			public String map(Tuple2<Integer, Float[]> value) throws Exception {
-				String temp = "Feature:";
-				for (int i = 0; i < value.f1.length; i++) {
-					temp = temp + value.f1[i] + " ### ";
-				}
-				temp = temp + " Label:" + value.f0;
-				System.out.println(temp);
+			public String map(Tuple2<Integer, Float> value) throws Exception {
+				String temp = "";
+				temp = temp + value;
 				return temp;
 			}
 		});
