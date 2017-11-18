@@ -177,7 +177,8 @@ public class Test {
 			text.print();
 		}
 		env.execute("My Log Reg Test");
-		bw.write("Sum:" + sum + "\n");
+		bw.write("Sum:" + sum);
+		bw.newLine();
 		bw.write("Program End at :" + df.format(new Date()));
 		bw.newLine();
 		bw.close();

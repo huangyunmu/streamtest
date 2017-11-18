@@ -5,15 +5,17 @@ import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.core.fs.FileSystem.WriteMode;
+import org.apache.flink.streaming.api.datastream.ConnectedStreams;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.co.CoMapFunction;
 
 public class Test {
 
@@ -43,27 +45,19 @@ public class Test {
 
 		// make parameters available in the web interface
 		env.getConfig().setGlobalJobParameters(inputParams);
-		DataStream<String> text = null;
+		DataStream<String> inputData = null;
 		if (inputParams.has("input")) {
 			// read the text file from given input path
-			text = env.readTextFile(inputParams.get("input"));
+			inputData = env.readTextFile(inputParams.get("input"));
 		} else {
 			System.out.println("Use --input to specify file input.");
 			// get default test text data
 		}
 
-		// Get the data from txt file
-		// DataStream<String[]> strData;
-		// strData = text.map(new MapFunction<String, String[]>() {
-		// public String[] map(String value) throws Exception {
-		// return value.split("\t");
-		// }
-		// });
-
 		// Convert string to tuple
 
 		DataStream<Tuple2<Integer, Float[]>> dataStream;
-		dataStream = text.map(new MapFunction<String, Tuple2<Integer, Float[]>>() {
+		dataStream = inputData.map(new MapFunction<String, Tuple2<Integer, Float[]>>() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -86,6 +80,22 @@ public class Test {
 			}
 
 		});
+		// List<Params> paramsList = new LinkedList<Params>();
+		List<Params> tempList = new LinkedList<Params>();
+		tempList.add(new Params(0F, 0F));
+		DataStream<Params> paraStream = env.fromCollection(tempList);
+
+		ConnectedStreams<Tuple2<Integer, Float[]>, Params> connectStream = dataStream.connect(paraStream);
+		DataStream<Boolean> boolStream = connectStream
+				.map(new CoMapFunction<Tuple2<Integer, Float[]>, Params, Boolean>() {
+					public Boolean map1(Tuple2<Integer, Float[]> value) {
+						return true;
+					}
+
+					public Boolean map2(Params value) {
+						return false;
+					}
+				});
 
 		// DataStream<Tuple2<Integer, Float>> sumStream;
 		// sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
@@ -149,6 +159,25 @@ public class Test {
 				return temp;
 			}
 		});
+
+		output = boolStream.map(new MapFunction<Boolean, String>() {
+			/**
+			*
+			*/
+			private static final long serialVersionUID = 1L;
+
+			public String map(Boolean value) throws Exception {
+				String temp = "";
+				if (value == true) {
+					temp = "True";
+				} else {
+					temp = "False";
+				}
+				System.out.println(temp);
+				return temp;
+			}
+		});
+
 		// output = sumStream.map(new MapFunction<Tuple2<Integer, Float>,
 		// String>() {
 		// /**
@@ -168,7 +197,7 @@ public class Test {
 			// System.out.println("Final Weight:" + Arrays.toString(weight));
 		} else {
 			System.out.println("Printing result to stdout. Use --output to specify output path.");
-			text.print();
+			inputData.print();
 		}
 		env.execute("My Log Reg Test");
 		bw.write("Program End at :" + df.format(new Date()));
