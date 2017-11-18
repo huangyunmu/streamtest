@@ -7,10 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.common.functions.ReduceFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.core.fs.FileSystem.WriteMode;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class Test {
@@ -20,6 +22,7 @@ public class Test {
 	static int INPUT_DATA_SIZE = 3;
 	static Float LEARNIN_RATE = 0.01f;
 	static int PARALLELISM = 1;
+	static Float sum = 0f;
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -59,6 +62,7 @@ public class Test {
 		// });
 
 		// Convert string to tuple
+
 		DataStream<Tuple2<Integer, Float[]>> dataStream;
 		dataStream = text.map(new MapFunction<String, Tuple2<Integer, Float[]>>() {
 
@@ -67,70 +71,52 @@ public class Test {
 			public Tuple2<Integer, Float[]> map(String value) throws Exception {
 				// TODO Auto-generated method stub
 				Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
-				// tempTuple.f0 = value.length();
-				// tempTuple.f1 = new Float[] { 2f, 3f };
 				String[] split = value.split(" ");
 				int dim = split.length - 1;
 				// Label
-				// tempTuple.f0 =
-				// Integer.parseInt(value.substring(value.length()-1));
 				tempTuple.f0 = Integer.parseInt(split[dim]);
 				// Feature
 				Float[] tempFeature = new Float[dim];
+				Float tempSum = 0F;
 				for (int i = 0; i < dim; i++) {
 					tempFeature[i] = Float.parseFloat(split[i]);
+					tempSum = tempSum + 0F;
 				}
 				tempTuple.f1 = tempFeature;
+				if (tempTuple.f0 > 0) {
+					sum = sum + tempSum;
+				} else {
+					sum = sum - tempSum;
+				}
+
 				return tempTuple;
 			}
 
 		});
 
-		// Transform the data from string to float
-		// DataStream<Tuple2<Integer, Float[]>> dataStream;
-		// dataStream = strData.map(new MapFunction<String[], Tuple2<Integer,
-		// Float[]>>() {
+		// DataStream<Tuple2<Integer, Float>> sumStream;
+		// sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
+		// Tuple2<Integer, Float>>() {
 		//
 		// private static final long serialVersionUID = 1L;
 		//
-		// public Tuple2<Integer, Float[]> map(String[] value) throws Exception
-		// {
+		// public Tuple2<Integer, Float> map(Tuple2<Integer, Float[]> data)
+		// throws Exception {
 		// // TODO Auto-generated method stub
-		// Tuple2<Integer, Float[]> tempTuple = new Tuple2<Integer, Float[]>();
-		// int dim = value.length - 1;
-		// // Label
-		// tempTuple.f0 = Integer.parseInt(value[dim + 1]);
-		// // Feature
-		// Float[] tempFeature = new Float[dim];
-		// for (int i = 0; i < dim; i++) {
-		// tempFeature[i] = Float.parseFloat(value[i]);
+		// Float sum = 0F;
+		// for (int i = 0; i < data.f1.length; i++) {
+		// sum = sum + data.f1[i];
 		// }
-		// tempTuple.f1 = tempFeature;
+		// Tuple2<Integer, Float> tempTuple = new Tuple2<Integer, Float>();
+		// tempTuple.f0 = data.f0;
+		// tempTuple.f1 = sum;
 		// return tempTuple;
 		// }
 		//
 		// });
-		DataStream<Tuple2<Integer, Float>> sumStream;
-		sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, Tuple2<Integer, Float>>() {
 
-			private static final long serialVersionUID = 1L;
-
-			public Tuple2<Integer, Float> map(Tuple2<Integer, Float[]> data) throws Exception {
-				// TODO Auto-generated method stub
-				Float sum = 0F;
-				for (int i = 0; i < data.f1.length; i++) {
-					sum = sum + data.f1[i];
-				}
-				Tuple2<Integer, Float> tempTuple = new Tuple2<Integer, Float>();
-				tempTuple.f0 = data.f0;
-				tempTuple.f1 = sum;
-				return tempTuple;
-			}
-
-		});
-		//
 		// KeyedStream ks = sumStream.keyBy(0);
-		// DataStream<Float> output = ks.reduce(new ReduceFunction<Float>() {
+		// DataStream<Float> reduceks = ks.reduce(new ReduceFunction<Float>() {
 		// public Float reduce(Float value1, Float value2) throws Exception {
 		// return value1 + value2;
 		// }
@@ -154,35 +140,35 @@ public class Test {
 		// });
 
 		DataStream<String> output;
-		// output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
+		output = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>, String>() {
+			/**
+			*
+			*/
+			private static final long serialVersionUID = 1L;
+
+			public String map(Tuple2<Integer, Float[]> value) throws Exception {
+				String temp = "Feature:";
+				for (int i = 0; i < value.f1.length; i++) {
+					temp = temp + value.f1[i] + " ### ";
+				}
+				temp = temp + " Label:" + value.f0;
+				System.out.println(temp);
+				return temp;
+			}
+		});
+		// output = sumStream.map(new MapFunction<Tuple2<Integer, Float>,
 		// String>() {
 		// /**
 		// *
 		// */
 		// private static final long serialVersionUID = 1L;
 		//
-		// public String map(Tuple2<Integer, Float[]> value) throws Exception {
-		// String temp = "Feature:";
-		// for (int i = 0; i < value.f1.length; i++) {
-		// temp = temp + value.f1[i] + " ### ";
-		// }
-		// temp = temp + " Label:" + value.f0;
-		// System.out.println(temp);
+		// public String map(Tuple2<Integer, Float> value) throws Exception {
+		// String temp = "";
+		// temp = temp + value;
 		// return temp;
 		// }
 		// });
-		output = sumStream.map(new MapFunction<Tuple2<Integer, Float>, String>() {
-			/**
-			*
-			*/
-			private static final long serialVersionUID = 1L;
-
-			public String map(Tuple2<Integer, Float> value) throws Exception {
-				String temp = "";
-				temp = temp + value;
-				return temp;
-			}
-		});
 
 		if (inputParams.has("output")) {
 			output.writeAsText(inputParams.get("output"), WriteMode.OVERWRITE);
@@ -192,6 +178,7 @@ public class Test {
 			text.print();
 		}
 		env.execute("My Log Reg Test");
+		bw.write("sum:" + sum + "/n");
 		bw.write("Program End at :" + df.format(new Date()));
 		bw.newLine();
 		bw.close();
