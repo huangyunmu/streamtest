@@ -2,6 +2,8 @@ package Flink_Test.LogRegBatch;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,6 +33,7 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.configuration.Configuration;
 
+import Flink_Test.LogRegBatch.LinearRegression.Params;
 import Flink_Test.LogRegBatch.util.LinearRegressionData;
 /**
  * This example implements a basic Linear Regression  to solve the y = theta0 + theta1*x problem using batch gradient descent algorithm.
@@ -97,7 +100,7 @@ public class LinearRegression {
 
 		// set number of bulk iterations for SGD linear Regression
 		IterativeDataSet<Params> loop = parameters.iterate(iterations);
-
+		
 		DataSet<Params> newParameters = data
 				// compute a single step using every sample
 				.map(new SubUpdate()).withBroadcastSet(loop, "parameters")

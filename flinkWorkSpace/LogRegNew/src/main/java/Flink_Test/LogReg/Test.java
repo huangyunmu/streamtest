@@ -7,12 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.flink.api.common.functions.MapFunction;
-import org.apache.flink.api.common.functions.ReduceFunction;
+import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.core.fs.FileSystem.WriteMode;
 import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.KeyedStream;
+import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class Test {
@@ -22,6 +22,17 @@ public class Test {
 	static int INPUT_DATA_SIZE = 3;
 	static Float LEARNIN_RATE = 0.01f;
 	static int PARALLELISM = 1;
+	static Float sum = 0F;
+	public static final Object[][] PARAMS = new Object[][] { new Object[] { 0.0, 0.0 } };
+
+	// public static DataSet<Params>
+	// getDefaultParamsDataSet(ExecutionEnvironment env) {
+	// List<Params> paramsList = new LinkedList<Params>();
+	// for (Object[] params : PARAMS) {
+	// paramsList.add(new Params((Double) params[0], (Double) params[1]));
+	// }
+	// return env.fromCollection(paramsList);
+	// }
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
@@ -33,16 +44,18 @@ public class Test {
 		String logFileName = "log/api-test-log-";
 		File file = new File(logFileName + timeStamp + ".txt");
 		final BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+		bw.write("Program Start at :" + df.format(new Date()));
+		bw.newLine();
 		// set up the execution environment
 		// final StreamExecutionEnvironment env =
 		// StreamExecutionEnvironment.getExecutionEnvironment();
-		bw.write("Program Start at :" + df.format(new Date()));
-		bw.newLine();
+
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()
 				.setParallelism(PARALLELISM);
 
 		// make parameters available in the web interface
 		env.getConfig().setGlobalJobParameters(inputParams);
+		// Get the data from txt file
 		DataStream<String> text = null;
 		if (inputParams.has("input")) {
 			// read the text file from given input path
@@ -51,14 +64,6 @@ public class Test {
 			System.out.println("Use --input to specify file input.");
 			// get default test text data
 		}
-
-		// Get the data from txt file
-		// DataStream<String[]> strData;
-		// strData = text.map(new MapFunction<String, String[]>() {
-		// public String[] map(String value) throws Exception {
-		// return value.split("\t");
-		// }
-		// });
 
 		// Convert string to tuple
 
@@ -79,13 +84,21 @@ public class Test {
 				Float tempSum = 0F;
 				for (int i = 0; i < dim; i++) {
 					tempFeature[i] = Float.parseFloat(split[i]);
-					tempSum = tempSum + 0F;
+					tempSum = tempSum + tempFeature[i];
 				}
+				if (tempTuple.f0 > 0) {
+					sum = sum + tempSum;
+				} else {
+					sum = sum - tempSum;
+				}
+				System.out.println(sum);
 				tempTuple.f1 = tempFeature;
 				return tempTuple;
 			}
 
 		});
+		DataStreamSource<Integer> toBroadcast = env.fromElements(1, 2, 3);
+		// DataSet<Params> parameter=getDefaultParamsDataSet(env);
 
 		// DataStream<Tuple2<Integer, Float>> sumStream;
 		// sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
@@ -106,13 +119,6 @@ public class Test {
 		// return tempTuple;
 		// }
 		//
-		// });
-
-		// KeyedStream ks = sumStream.keyBy(0);
-		// DataStream<Float> reduceks = ks.reduce(new ReduceFunction<Float>() {
-		// public Float reduce(Float value1, Float value2) throws Exception {
-		// return value1 + value2;
-		// }
 		// });
 
 		// DataStream<String> output;
@@ -171,6 +177,7 @@ public class Test {
 			text.print();
 		}
 		env.execute("My Log Reg Test");
+		bw.write("Sum:" + sum + "\n");
 		bw.write("Program End at :" + df.format(new Date()));
 		bw.newLine();
 		bw.close();
