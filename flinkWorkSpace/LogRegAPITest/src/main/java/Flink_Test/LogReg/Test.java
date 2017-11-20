@@ -108,15 +108,16 @@ public class Test {
 						return value.toString();
 					}
 				});
-		DataStream<String> flatStream = connectStream
-				.flatMap(new CoFlatMapFunction<Tuple2<Integer, Float[]>, Params, String>() {
+		DataStream<Params> flatStream = connectStream
+				.flatMap(new CoFlatMapFunction<Tuple2<Integer, Float[]>, Params, Params>() {
 
-					public void flatMap1(Tuple2<Integer, Float[]> value, Collector<String> out) {
-						out.collect(value.toString());
+					public void flatMap1(Tuple2<Integer, Float[]> value, Collector<Params> out) {
+
+						out.collect(new Params());
 					}
 
-					public void flatMap2(Params value, Collector<String> out) {
-						out.collect(value.toString());
+					public void flatMap2(Params value, Collector<Params> out) {
+						// out.collect(new Params());
 					}
 				});
 		// DataStream<Tuple2<Integer, Float>> sumStream;
@@ -182,7 +183,19 @@ public class Test {
 			}
 		});
 		// output = testStream;
-		output = flatStream;
+
+		output = flatStream.map(new MapFunction<Params, String>() {
+			/**
+			*
+			*/
+			private static final long serialVersionUID = 1L;
+
+			public String map(Params value) throws Exception {
+				String temp;
+				temp = value.toString();
+				return temp;
+			}
+		});
 		// output = testStream.map(new MapFunction<Boolean, String>() {
 		// /**
 		// *

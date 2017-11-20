@@ -2,7 +2,7 @@ package Flink_Test.LogReg;
 
 import java.io.Serializable;
 
-public class Params implements Serializable{
+public class Params implements Serializable {
 
 	/**
 	 * 
@@ -10,7 +10,10 @@ public class Params implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Float theta0, theta1;
 
-	public Params() {}
+	public Params() {
+		this.theta0 = 0.1f;
+		this.theta1 = -0.1f;
+	}
 
 	public Params(Float x0, Float x1) {
 		this.theta0 = x0;
