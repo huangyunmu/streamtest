@@ -15,7 +15,9 @@ import org.apache.flink.core.fs.FileSystem.WriteMode;
 import org.apache.flink.streaming.api.datastream.ConnectedStreams;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.co.CoFlatMapFunction;
 import org.apache.flink.streaming.api.functions.co.CoMapFunction;
+import org.apache.flink.util.Collector;
 
 public class Test {
 
@@ -106,7 +108,17 @@ public class Test {
 						return value.toString();
 					}
 				});
+		DataStream<String> flatStream = connectStream
+				.flatMap(new CoFlatMapFunction<Tuple2<Integer, Float[]>, Params, String>() {
 
+					public void flatMap1(Tuple2<Integer, Float[]> value, Collector<String> out) {
+						out.collect(value.toString());
+					}
+
+					public void flatMap2(Params value, Collector<String> out) {
+						out.collect(value.toString());
+					}
+				});
 		// DataStream<Tuple2<Integer, Float>> sumStream;
 		// sumStream = dataStream.map(new MapFunction<Tuple2<Integer, Float[]>,
 		// Tuple2<Integer, Float>>() {
@@ -169,7 +181,8 @@ public class Test {
 				return temp;
 			}
 		});
-		output = testStream;
+		// output = testStream;
+		output = flatStream;
 		// output = testStream.map(new MapFunction<Boolean, String>() {
 		// /**
 		// *
