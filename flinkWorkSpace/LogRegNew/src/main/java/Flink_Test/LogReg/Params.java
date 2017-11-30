@@ -8,11 +8,11 @@ public class Params implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private double theta0, theta1;
+	protected Float theta0, theta1;
 
 	public Params() {}
 
-	public Params(double x0, double x1) {
+	public Params(Float x0, Float x1) {
 		this.theta0 = x0;
 		this.theta1 = x1;
 	}
@@ -22,19 +22,19 @@ public class Params implements Serializable{
 		return theta0 + " " + theta1;
 	}
 
-	public double getTheta0() {
+	public Float getTheta0() {
 		return theta0;
 	}
 
-	public double getTheta1() {
+	public Float getTheta1() {
 		return theta1;
 	}
 
-	public void setTheta0(double theta0) {
+	public void setTheta0(Float theta0) {
 		this.theta0 = theta0;
 	}
 
-	public void setTheta1(double theta1) {
+	public void setTheta1(Float theta1) {
 		this.theta1 = theta1;
 	}
 

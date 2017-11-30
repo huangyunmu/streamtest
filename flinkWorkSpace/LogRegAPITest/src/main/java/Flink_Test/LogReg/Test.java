@@ -27,7 +27,7 @@ public class Test {
 	static Float LEARNIN_RATE = 0.01f;
 	static int PARALLELISM = 1;
 
-	public static String dataToString(Tuple2<Integer, Float[]> value) {
+	public static String sampleToString(Tuple2<Integer, Float[]> value) {
 		String temp = "Feature:";
 		for (int i = 0; i < value.f1.length; i++) {
 			temp = temp + value.f1[i] + " ### ";
@@ -96,24 +96,31 @@ public class Test {
 		List<Params> tempList = new LinkedList<Params>();
 		tempList.add(new Params(0F, 0F));
 		DataStream<Params> paraStream = env.fromCollection(tempList);
-
+		paraStream.broadcast();
+		
 		ConnectedStreams<Tuple2<Integer, Float[]>, Params> connectStream = dataStream.connect(paraStream);
 		DataStream<String> testStream = connectStream
 				.map(new CoMapFunction<Tuple2<Integer, Float[]>, Params, String>() {
 					public String map1(Tuple2<Integer, Float[]> value) {
-						return dataToString(value);
+						return sampleToString(value);
 					}
 
 					public String map2(Params value) {
 						return value.toString();
 					}
 				});
+		
 		DataStream<Params> flatStream = connectStream
 				.flatMap(new CoFlatMapFunction<Tuple2<Integer, Float[]>, Params, Params>() {
 
-					public void flatMap1(Tuple2<Integer, Float[]> value, Collector<Params> out) {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
 
+					public void flatMap1(Tuple2<Integer, Float[]> value, Collector<Params> out) {
 						out.collect(new Params());
+					
 					}
 
 					public void flatMap2(Params value, Collector<Params> out) {
@@ -173,12 +180,7 @@ public class Test {
 			private static final long serialVersionUID = 1L;
 
 			public String map(Tuple2<Integer, Float[]> value) throws Exception {
-				String temp = "Feature:";
-				for (int i = 0; i < value.f1.length; i++) {
-					temp = temp + value.f1[i] + " ### ";
-				}
-				temp = temp + " Label:" + value.f0;
-				System.out.println(temp);
+				String temp = sampleToString(value);
 				return temp;
 			}
 		});
