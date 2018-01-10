@@ -1,5 +1,5 @@
 /data/opt/course/1155086998/flink/bin/flink run \
--c Flink_Test.OnlineSVMExample.Test \
+-c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
 --input file:///data/opt/course/1155086998/data/logistic.txt \
 --output file:///data/opt/course/1155086998/data/output-api.txt \

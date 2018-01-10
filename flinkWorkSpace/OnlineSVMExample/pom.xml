@@ -39,8 +39,15 @@
     </dependency>
     <dependency>
   <groupId>org.apache.flink</groupId>
-  <artifactId>flink-connector-kafka-0.8_2.10</artifactId>
+  <artifactId>flink-connector-kafka-0.10_2.10</artifactId>
   <version>1.3.2</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/org.apache.flink/flink-ml -->
+<dependency>
+    <groupId>org.apache.flink</groupId>
+    <artifactId>flink-ml_2.11</artifactId>
+    <version>1.3.2</version>
+</dependency>
+
   </dependencies>
 </project>
