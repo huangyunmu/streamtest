@@ -1,11 +1,11 @@
 package andy;
 
-
 import java.util.Arrays;
 import java.util.List;
 
 public class LogRegression {
-	
+	private int BATCH_SIZE = 20;
+
 	public void train(ReadData rd, float step, int type) {
 		List<List<Float>> datas = rd.dataList;
 		List<Float> labels = rd.labelList;
@@ -44,22 +44,50 @@ public class LogRegression {
 		case 2:// SGD
 			while (changes > 0.0001) {
 				float[] wClone = weight.clone();
-				for (int s = 0; s < size; s++) {
-					float lire = innerProduct(weight, datas.get(s));
-					float out = sigmoid(lire);
-					float error = labels.get(s) - out;
-					for (int d = 0; d < dim; d++) {
-						weight[d] += step * error * datas.get(s).get(d);
-					}
+				int k = (int) (Math.random() * datas.size());
+				float lire = innerProduct(weight, datas.get(k));
+				float out = sigmoid(lire);
+				float error = labels.get(k) - out;
+				for (int d = 0; d < dim; d++) {
+					weight[d] += step * error * datas.get(k).get(d);
 				}
 				changes = changsWeight(wClone, weight);
+
 				caculate++;
 
 				System.out.println("Iteration:" + caculate + "  Weight:" + Arrays.toString(weight));
 			}
 
 			break;
+		case 3:
+			// MBGD
+			while (changes > 0.0001) {
+				float[] wClone = weight.clone();
+				
+				float[] out = new float[BATCH_SIZE];
+				int[] sampleIndex=new int[BATCH_SIZE];
+				for(int s=0;s<BATCH_SIZE;s++){
+					sampleIndex[s]=(int)(Math.random()*datas.size());
+				}
+				for (int s = 0; s < BATCH_SIZE; s++) {
+					float lire = innerProduct(weight, datas.get(sampleIndex[s]));
+					out[s] = sigmoid(lire);
+				}
+				for (int d = 0; d < dim; d++) {
+					float sum = 0;
+					for (int s = 0; s < BATCH_SIZE; s++) {
+						sum += (labels.get(sampleIndex[s]) - out[s]) * datas.get(sampleIndex[s]).get(d);
+					}
+					float q = weight[d];
+					weight[d] = (float) (q + step * sum);
 
+					// w[d] = (float) (q + step * sum-0.01*Math.pow(q,2)); L2正则
+					// w[d] = (float) (q + step * sum-0.01*Math.abs(q)); L1正则
+				}
+				changes = changsWeight(wClone, weight);
+				caculate++;
+				System.out.println("Iteration: " + caculate + "  Weight:" + Arrays.toString(weight));
+			}
 		default:
 			break;
 		}

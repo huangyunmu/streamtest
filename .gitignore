@@ -12,3 +12,10 @@ flinkWorkSpace/.recommenders/
 flinkWorkSpace/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
 flinkWorkSpace/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
 flinkWorkSpace/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
+*.ini
+flinkWorkSpace/.metadata/version.ini
+flinkWorkSpace/.metadata/.plugins/org.eclipse.m2e.core/nexus/fb06307226794c4ff88472fc9eadf91b/segments.gen
+flinkWorkSpace/.metadata/.plugins/org.eclipse.m2e.core/nexus/830bc118332e77292949ed1e6d2fabe0/segments.gen
+flinkWorkSpace/.metadata/.plugins/org.eclipse.m2e.core/nexus/05b0fe8524860bd73cbb07ef30fb34cc/segments.gen
+flinkWorkSpace/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
+flinkWorkSpace/.metadata/.log

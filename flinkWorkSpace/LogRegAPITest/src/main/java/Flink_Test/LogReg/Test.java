@@ -52,7 +52,10 @@ public class Test {
 		// StreamExecutionEnvironment.getExecutionEnvironment();
 		bw.write("Program Start at :" + df.format(new Date()));
 		bw.newLine();
-		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment()
+		// final StreamExecutionEnvironment env =
+		// StreamExecutionEnvironment.getExecutionEnvironment()
+		// .setParallelism(PARALLELISM);
+		final StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironment()
 				.setParallelism(PARALLELISM);
 
 		// make parameters available in the web interface

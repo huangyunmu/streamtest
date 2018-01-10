@@ -30,9 +30,11 @@ public class ReadData {
 		while (str != null) {
 			String[] arr = str.split("\t");
 			ArrayList<Float> tempList=new ArrayList<Float>();
-			for(int i=0;i<arr.length;i++){
+			for(int i=0;i<arr.length-1;i++){
 				tempList.add(Float.parseFloat(arr[i]));
 			}
+			//For bias
+			tempList.add(1F);
 			this.dataList.add(tempList);
 			this.labelList.add(Float.parseFloat(arr[arr.length-1]));
 			str = buff.readLine();
