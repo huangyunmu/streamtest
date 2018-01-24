@@ -5,5 +5,5 @@ for i in range(5,11):
     cmd =cmd+kafkaPath+"bin/kafka-server-start.sh "+ kafkaPath+"config/server_proj"+str(i)+".properties &"
     #print(cmd)
     os.system(cmd)
-	cmd =""
+    cmd =""
 # print cmd
