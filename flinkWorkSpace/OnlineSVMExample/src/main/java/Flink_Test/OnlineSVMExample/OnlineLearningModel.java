@@ -74,9 +74,15 @@ public abstract class OnlineLearningModel implements Serializable {
                 new SimpleStringSchema(),
                 parameterTool.getProperties()
         )).filter(s -> !s.isEmpty());
+       
 
         DataStream<DenseVector> middle = input.map(new MapFunction<String, LabeledVector>() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public LabeledVector map(String s) {
                 // format of s: timestamp sample
                 // format of sample: label idx1:val1 idx2:val2 idx3:val3 ...
@@ -93,13 +99,12 @@ public abstract class OnlineLearningModel implements Serializable {
                 return new LabeledVector(label, new SparseVector(paramSize, indices, values));
             }
         }).connect(gradients).flatMap(train());
-
+//coflatmap
         middle.addSink(new FlinkKafkaProducer010<DenseVector>(
                 gradTopic,
                 new DenseVectorSchema(),
                 parameterTool.getProperties()
         ));
-
         middle.process(new ProcessFunction<DenseVector, Long>() {
             @Override
             public void processElement(DenseVector value, Context ctx, Collector<Long> out) throws Exception {
