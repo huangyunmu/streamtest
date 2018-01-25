@@ -3,7 +3,7 @@ kafkaPath="/data/opt/course/1155086998/kafka/"
 fileName="a9"
 topic="test"
 cmd=kafkaPath+"bin/kafka-console-producer.sh --broker-list localhost:9092 --topic "+topic
-#os.system(cmd)
+os.system(cmd)
 while True:
     with open(fileName,"r") as f:
         data=f.readline()
