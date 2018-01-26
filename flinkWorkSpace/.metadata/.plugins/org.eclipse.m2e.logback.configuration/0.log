@@ -5843,3 +5843,39 @@
 2018-01-26 11:12:56,829 [Worker-9] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2018-01-26 11:12:56,829 [Worker-9] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
 2018-01-26 11:29:19,045 [Worker-0] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2018-01-26 11:42:57,682 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:42:57,682 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 11:42:57,685 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:42:57,685 [Worker-16] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 11:42:58,752 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:42:58,753 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 11:42:58,754 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:42:58,754 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 11:43:07,604 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:43:07,604 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 11:43:07,609 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:43:07,609 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 11:49:19,018 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:49:19,019 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 11:49:19,021 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:49:19,021 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 11:49:32,823 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:49:32,823 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 11:49:32,825 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:49:32,825 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 11:49:50,031 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:49:50,031 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 11:49:50,032 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 11:49:50,033 [Worker-20] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 12:02:38,776 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 12:02:38,777 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 12:02:38,778 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 12:02:38,778 [Worker-33] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 12:02:39,806 [Worker-31] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 12:02:39,807 [Worker-31] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 12:02:39,809 [Worker-31] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 12:02:39,810 [Worker-31] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 14:01:51,646 [Worker-67] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 14:01:51,646 [Worker-67] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 14:01:51,647 [Worker-67] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 14:01:51,648 [Worker-67] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
