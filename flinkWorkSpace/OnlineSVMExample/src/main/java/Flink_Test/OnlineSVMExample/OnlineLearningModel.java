@@ -63,7 +63,7 @@ public abstract class OnlineLearningModel implements Serializable {
     }
 
     public void modeling(StreamExecutionEnvironment env) {
-        int metricInterval = parameterTool.getInt("metric.interval", 1);
+        final int metricInterval = parameterTool.getInt("metric.interval", 1);
         DataStream<DenseVector> gradients = env.addSource(new FlinkKafkaConsumer010<DenseVector>(
                 gradTopic,
                 new DenseVectorSchema(),
