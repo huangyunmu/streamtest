@@ -19,3 +19,7 @@ flinkWorkSpace/.metadata/.plugins/org.eclipse.m2e.core/nexus/830bc118332e7729294
 flinkWorkSpace/.metadata/.plugins/org.eclipse.m2e.core/nexus/05b0fe8524860bd73cbb07ef30fb34cc/segments.gen
 flinkWorkSpace/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
 flinkWorkSpace/.metadata/.log
+*.resources
+*.dat
+*.properties
+*.xmi
