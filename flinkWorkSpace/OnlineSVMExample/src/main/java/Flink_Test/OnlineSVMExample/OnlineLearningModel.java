@@ -82,8 +82,9 @@ public abstract class OnlineLearningModel implements Serializable {
 //                new SimpleStringSchema(),
 //                parameterTool.getProperties()
 //        )
-        		).filter(s -> !s.isEmpty());
-       
+        		);
+        //Comment the lamda
+//    ).filter(s -> !s.isEmpty());
 
         DataStream<DenseVector> middle = input.map(new MapFunction<String, LabeledVector>() {
             /**
