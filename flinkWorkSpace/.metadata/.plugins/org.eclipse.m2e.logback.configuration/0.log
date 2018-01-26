@@ -5879,3 +5879,31 @@
 2018-01-26 14:01:51,646 [Worker-67] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
 2018-01-26 14:01:51,647 [Worker-67] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2018-01-26 14:01:51,648 [Worker-67] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 14:15:38,778 [Worker-70] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.10_2.10/1.3.2/flink-connector-kafka-0.10_2.10-1.3.2-sources.jar
+2018-01-26 14:15:39,170 [Worker-70] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.10_2.10/1.3.2/flink-connector-kafka-0.10_2.10-1.3.2-sources.jar
+2018-01-26 14:15:39,246 [Worker-70] INFO  o.e.m.j.internal.DownloadSourcesJob - Downloaded sources for org.apache.flink:flink-connector-kafka-0.10_2.10:1.3.2
+2018-01-26 14:15:39,752 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 14:15:39,752 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 14:15:39,753 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 14:15:39,753 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 14:34:31,734 [Worker-74] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: Flink-Test:OnlineSVMExample:0.0.1 @ D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\pom.xml.
+2018-01-26 14:34:32,992 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.10_2.11/1.3.2/flink-connector-kafka-0.10_2.11-1.3.2.pom
+2018-01-26 14:34:33,410 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.10_2.11/1.3.2/flink-connector-kafka-0.10_2.11-1.3.2.pom
+2018-01-26 14:34:33,608 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.9_2.11/1.3.2/flink-connector-kafka-0.9_2.11-1.3.2.pom
+2018-01-26 14:34:33,817 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.9_2.11/1.3.2/flink-connector-kafka-0.9_2.11-1.3.2.pom
+2018-01-26 14:34:34,016 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-base_2.11/1.3.2/flink-connector-kafka-base_2.11-1.3.2.pom
+2018-01-26 14:34:34,184 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-base_2.11/1.3.2/flink-connector-kafka-base_2.11-1.3.2.pom
+2018-01-26 14:34:34,530 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.10_2.11/1.3.2/flink-connector-kafka-0.10_2.11-1.3.2.jar
+2018-01-26 14:34:34,841 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.10_2.11/1.3.2/flink-connector-kafka-0.10_2.11-1.3.2.jar
+2018-01-26 14:34:35,040 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.9_2.11/1.3.2/flink-connector-kafka-0.9_2.11-1.3.2.jar
+2018-01-26 14:34:35,352 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-0.9_2.11/1.3.2/flink-connector-kafka-0.9_2.11-1.3.2.jar
+2018-01-26 14:34:35,511 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloading https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-base_2.11/1.3.2/flink-connector-kafka-base_2.11-1.3.2.jar
+2018-01-26 14:34:36,069 [Worker-74] INFO  o.e.m.c.i.e.AbstractTransferListenerAdapter - Downloaded https://repo.maven.apache.org/maven2/org/apache/flink/flink-connector-kafka-base_2.11/1.3.2/flink-connector-kafka-base_2.11-1.3.2.jar
+2018-01-26 14:34:36,580 [Worker-74] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 14:34:36,580 [Worker-74] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 14:34:36,583 [Worker-74] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 14:34:36,583 [Worker-74] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
+2018-01-26 14:34:38,287 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 14:34:38,287 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\main\resources
+2018-01-26 14:34:38,289 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-01-26 14:34:38,289 [Worker-73] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMExample\src\test\resources
