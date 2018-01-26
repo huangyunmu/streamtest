@@ -39,6 +39,7 @@ public abstract class OnlineLearningModel implements Serializable {
     protected int updateFreq;
     protected double regularization;
     protected String gradTopic;
+//    protected int offset;
 
     private static double formalize(double label) {
         if (label == 1) {
@@ -58,6 +59,7 @@ public abstract class OnlineLearningModel implements Serializable {
         updateFreq = parameterTool.getInt("update.frequency", 100);
         regularization = parameterTool.getDouble("regularization", 1);
         gradTopic = parameterTool.get("grad.topic", "online-svm-grad");
+//        offset=parameterTool.getInt("offset", 0);
     }
 
     public void modeling(StreamExecutionEnvironment env) {
@@ -67,13 +69,20 @@ public abstract class OnlineLearningModel implements Serializable {
                 new DenseVectorSchema(),
                 parameterTool.getProperties()
         )).broadcast();
-
+        
         env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
-        DataStream<String> input = env.addSource(new FlinkKafkaConsumer010<String>( // source of samples
-                dataTopic,
+        FlinkKafkaConsumer010<String> dataConsumer= new FlinkKafkaConsumer010<String>(dataTopic,
                 new SimpleStringSchema(),
-                parameterTool.getProperties()
-        )).filter(s -> !s.isEmpty());
+                parameterTool.getProperties());
+        dataConsumer.setStartFromEarliest();
+        DataStream<String> input = env.addSource(
+        		dataConsumer
+//        		new FlinkKafkaConsumer010<String>( // source of samples
+//                dataTopic,
+//                new SimpleStringSchema(),
+//                parameterTool.getProperties()
+//        )
+        		).filter(s -> !s.isEmpty());
        
 
         DataStream<DenseVector> middle = input.map(new MapFunction<String, LabeledVector>() {

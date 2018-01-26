@@ -5,10 +5,19 @@ topic="test"
 cmd=kafkaPath+"bin/kafka-console-producer.sh --broker-list localhost:9092 --topic "+topic
 os.system(cmd)
 while True:
-    with open(fileName,"r") as f:
-        data=f.readline()
-        print(data)
+    max=0
+    for line in open(fileName,"r"):
+        if(len(line)==0):
+            break
+        num=line.split(" ")
+        for i in range(1,len(num)-1):
+            #print(num[i])
+            index,data=num[i].split(":")
+            if(int(index)>int(max)):
+                max=index
+  
         #cmd=kafkaPath+"bin/kafka-console-producer.sh --broker-list localhost:9092 --topic "+topic+" "+data
         #os.system(cmd)
-    #print(cmd)   
+    #print(cmd)
+    print(max)
     break
