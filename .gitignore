@@ -7,8 +7,10 @@ __pycache__/
 *.so
 
 #eclipse 
-flinkWorkSpace/.metadata/
+flinkWorkSpace/.metadata/*
 flinkWorkSpace/.recommenders/
+flinkWorkSpace/.metadata/.plugins/*
+flinkWorkSpace/.metadata/.plugins/.mylyn/*
 flinkWorkSpace/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
 flinkWorkSpace/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
 flinkWorkSpace/.metadata/.plugins/org.eclipse.epp.logging.aeri.ide/org.eclipse.epp.logging.aeri.ide.server/server-config.json
@@ -23,3 +25,4 @@ flinkWorkSpace/.metadata/.log
 *.dat
 *.properties
 *.xmi
+flinkWorkSpace/.metadata/.plugins/org.eclipse.cdt.core/.log
