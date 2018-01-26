@@ -3,7 +3,7 @@
 -C file:///data/opt/course/1155086998/lib/flink-connector-kafka-0.9_2.11-1.3.2.jar \
 -C file:///data/opt/course/1155086998/lib/flink-connector-kafka-0.8_2.11-1.3.2.jar \
 -C file:///data/opt/course/1155086998/lib/flink-connector-kafka-base_2.11-1.3.2.jar \
--C file:///data/opt/course/1155086998/lib/kafka_2.10-0.8.2.2.jar \
+-C file:///data/opt/course/1155086998/lib/kafka_2.11-0.8.2.2.jar \
 -c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
 --data.topic a9_data_topic \
