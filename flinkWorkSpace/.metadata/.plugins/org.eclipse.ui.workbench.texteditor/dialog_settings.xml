@@ -2,19 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="final" key="selection"/>
+		<item value="build" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="confi"/>
+			<item value="build"/>
 			<item value="final"/>
 			<item value="CoFlatMapFunction"/>
 			<item value="metricInterval"/>
 			<item value="train"/>
 			<item value="System"/>
 			<item value="broadcast"/>
-			<item value="broadcase"/>
 		</list>
 		<list key="replacehistory">
 		</list>
