@@ -39,7 +39,7 @@ public abstract class OnlineLearningModel implements Serializable {
 	protected int updateFreq;
 	protected double regularization;
 	protected String gradTopic;
-	protected String brokerList;
+	protected String bootStrapServers;
 	protected String zookeeperConnect;
 
 	// protected int offset;
@@ -62,7 +62,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		regularization = parameterTool.getDouble("regularization", 1);
 		gradTopic = parameterTool.get("grad.topic", "online-svm-grad");
 		// brokerList = parameterTool.get("broker.list", "online-svm-grad");
-		brokerList = parameterTool.get("broker.list","proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092");
+		bootStrapServers = parameterTool.get("bootstrap.servers","proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092");
 		zookeeperConnect=parameterTool.get("zookeeper.connect","localhost:2181");
 		// offset=parameterTool.getInt("offset", 0);
 	}
