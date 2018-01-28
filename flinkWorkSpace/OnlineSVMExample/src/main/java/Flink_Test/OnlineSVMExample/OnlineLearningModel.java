@@ -1,5 +1,8 @@
 package Flink_Test.OnlineSVMExample;
 
+import java.io.Serializable;
+import java.util.Properties;
+
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
@@ -20,8 +23,6 @@ import org.apache.flink.streaming.util.serialization.SimpleStringSchema;
 import org.apache.flink.util.Collector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.Serializable;
 
 /**
  * Uncertainty: 1. Whether it's the correct way to train online svm. The way it
@@ -62,8 +63,9 @@ public abstract class OnlineLearningModel implements Serializable {
 		regularization = parameterTool.getDouble("regularization", 1);
 		gradTopic = parameterTool.get("grad.topic", "online-svm-grad");
 		// brokerList = parameterTool.get("broker.list", "online-svm-grad");
-		bootStrapServers = parameterTool.get("bootstrap.servers","proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092");
-		zookeeperConnect=parameterTool.get("zookeeper.connect","localhost:2181");
+		bootStrapServers = parameterTool.get("bootstrap.servers",
+				"proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092");
+		zookeeperConnect = parameterTool.get("zookeeper.connect", "localhost:2181");
 		// offset=parameterTool.getInt("offset", 0);
 	}
 
@@ -110,8 +112,19 @@ public abstract class OnlineLearningModel implements Serializable {
 			}
 		}).connect(gradients).flatMap(train());
 		// coflatmap
+		Properties gradTopicProducerPropersteis = new Properties();
+		gradTopicProducerPropersteis.setProperty("bootstrap.servers", bootStrapServers);
+		// only required for Kafka 0.8
+		gradTopicProducerPropersteis.setProperty("zookeeper.connect", zookeeperConnect);
+
+		// Modified by Andy
 		FlinkKafkaProducer010<DenseVector> gradTopicProducer = new FlinkKafkaProducer010<DenseVector>(gradTopic,
-				new DenseVectorSchema(), parameterTool.getProperties());
+				new DenseVectorSchema(), gradTopicProducerPropersteis);
+
+		// FlinkKafkaProducer010<DenseVector> gradTopicProducer = new
+		// FlinkKafkaProducer010<DenseVector>(gradTopic,
+		// new DenseVectorSchema(), parameterTool.getProperties());
+
 		middle.addSink(gradTopicProducer);
 		middle.process(new ProcessFunction<DenseVector, Long>() {
 			@Override
