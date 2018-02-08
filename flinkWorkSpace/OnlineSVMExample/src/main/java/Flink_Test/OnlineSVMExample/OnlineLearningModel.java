@@ -156,7 +156,10 @@ public abstract class OnlineLearningModel implements Serializable {
 				}).map(new MapFunction<Tuple2<Double, Double>, String>() {
 					@Override
 					public String map(Tuple2<Double, Double> value) {
-						return String.format("Average latency: %s ms, throughput: %s rec/sec", value.f0, value.f1);
+						String result = String.format("Average latency: %s ms, throughput: %s rec/sec", value.f0,
+								value.f1);
+						System.out.println(result);
+						return result;
 					}
 				}).print();
 	}
