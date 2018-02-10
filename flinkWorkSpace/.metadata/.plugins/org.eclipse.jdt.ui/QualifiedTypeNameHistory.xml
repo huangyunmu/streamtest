@@ -9,7 +9,6 @@
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="org.apache.flink.api.common.functions.ReduceFunction"/>
 <fullyQualifiedTypeName name="org.apache.flink.core.fs.FileSystem.WriteMode"/>
-<fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="com.sun.tools.javac.util.List"/>
 <fullyQualifiedTypeName name="org.apache.flink.streaming.api.functions.co.CoFlatMapFunction"/>
 <fullyQualifiedTypeName name="org.apache.flink.util.Collector"/>
@@ -17,4 +16,6 @@
 <fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="org.apache.flink.api.java.DataSet"/>
 <fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="java.util.Queue"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
 </qualifiedTypeNameHistroy>

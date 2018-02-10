@@ -89,7 +89,8 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					}
 					latestParams = oldParams.copy();
 					// Print the current accuracy
-					System.out.println("Currect accuracy:" + (float) (correctCount / itemQueue.size()));
+					System.out.println(correctCount);
+					System.out.println("Currect accuracy:" + (correctCount / (float) itemQueue.size()));
 				}
 			}
 
