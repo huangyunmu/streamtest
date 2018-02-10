@@ -1,5 +1,7 @@
 package Flink_Test.OnlineSVMExample;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -25,6 +27,7 @@ public class OnlineSVMModel extends OnlineLearningModel {
 			private Queue<Integer> itemQueue = null;
 			private int correctCount = 0;
 			private int countInterval = 100;
+			private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 
 			private void init() {
 				if (!inited) {
@@ -90,6 +93,8 @@ public class OnlineSVMModel extends OnlineLearningModel {
 
 				}
 				// Print the current accuracy
+				String timeStamp = df.format(new Date());
+				System.out.println("Current time:" + timeStamp);
 				System.out.println("Correct count:" + correctCount);
 				System.out.println("Currect accuracy:" + (correctCount / (float) itemQueue.size()));
 			}
