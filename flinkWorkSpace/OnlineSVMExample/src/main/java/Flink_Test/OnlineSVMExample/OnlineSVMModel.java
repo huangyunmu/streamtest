@@ -88,10 +88,11 @@ public class OnlineSVMModel extends OnlineLearningModel {
 						accuGradient.data()[i] = 0;
 					}
 					latestParams = oldParams.copy();
-					// Print the current accuracy
-					System.out.println(correctCount);
-					System.out.println("Currect accuracy:" + (correctCount / (float) itemQueue.size()));
+
 				}
+				// Print the current accuracy
+				System.out.println("Correct count:" + correctCount);
+				System.out.println("Currect accuracy:" + (correctCount / (float) itemQueue.size()));
 			}
 
 			public void flatMap2(DenseVector grad, Collector<DenseVector> coll) throws Exception { // update
