@@ -71,7 +71,6 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					correctCount++;
 				} else {
 					itemQueue.add(0);
-					correctCount++;
 				}
 				updateCnt += 1;
 				if (updateFreq == updateCnt) { // Can use count based here, not
