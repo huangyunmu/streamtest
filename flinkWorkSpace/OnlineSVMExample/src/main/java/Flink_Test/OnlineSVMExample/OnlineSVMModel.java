@@ -70,10 +70,10 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					for (int i = 0; i < indices.length; i++) {
 						latestParams.data()[indices[i]] += learningRate * v.label() * values[i];
 					}
+					itemQueue.add(0);
+				} else {
 					itemQueue.add(1);
 					correctCount++;
-				} else {
-					itemQueue.add(0);
 				}
 				updateCnt += 1;
 				if (updateFreq == updateCnt) { // Can use count based here, not
