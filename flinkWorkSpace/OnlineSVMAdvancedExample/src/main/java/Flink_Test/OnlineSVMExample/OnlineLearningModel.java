@@ -106,7 +106,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		// beginning
 		newDataConsumer.setStartFromEarliest();
 
-		FlinkKafkaConsumer010<String> oldDataConsumer = new FlinkKafkaConsumer010<String>(dataTopic,
+		FlinkKafkaConsumer010<String> oldDataConsumer = new FlinkKafkaConsumer010<String>(tempTopic,
 				new SimpleStringSchema(), parameterTool.getProperties());
 		// For old data (copy of new data for multiple training) read the data
 		// in this training
@@ -195,7 +195,8 @@ public abstract class OnlineLearningModel implements Serializable {
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
-		middle.addSink(gradTopicProducer);
+		DataStreamSink<DenseVector> gradSinkFunction = middle.addSink(gradTopicProducer);
+		gradSinkFunction.name("Gradient");
 		middle.process(new ProcessFunction<DenseVector, Long>() {
 			@Override
 			public void processElement(DenseVector value, Context ctx, Collector<Long> out) throws Exception {
