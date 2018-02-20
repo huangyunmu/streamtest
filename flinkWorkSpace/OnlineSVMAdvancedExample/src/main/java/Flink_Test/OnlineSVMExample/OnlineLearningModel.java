@@ -6,6 +6,7 @@ import java.util.Properties;
 import org.apache.flink.api.common.functions.AggregateFunction;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.java.operators.DataSink;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.ml.common.LabeledVector;
@@ -13,9 +14,11 @@ import org.apache.flink.ml.math.DenseVector;
 import org.apache.flink.ml.math.SparseVector;
 import org.apache.flink.streaming.api.TimeCharacteristic;
 import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.datastream.DataStreamSink;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.ProcessFunction;
 import org.apache.flink.streaming.api.functions.co.CoFlatMapFunction;
+import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer010;
@@ -113,11 +116,14 @@ public abstract class OnlineLearningModel implements Serializable {
 		Properties producerPropersteis = new Properties();
 		producerPropersteis.setProperty("bootstrap.servers", bootStrapServers);
 		producerPropersteis.setProperty("zookeeper.connect", zookeeperConnect);
+		producerPropersteis.setProperty("name", "test1");
 
 		// Modified by Andy
 		FlinkKafkaProducer010<DenseVector> gradTopicProducer = new FlinkKafkaProducer010<DenseVector>(gradTopic,
 				new DenseVectorSchema(), producerPropersteis);
+		
 
+		producerPropersteis.setProperty("name", "test2");
 		FlinkKafkaProducer010<CountLabelExample> tempDataProducer = new FlinkKafkaProducer010<CountLabelExample>(
 				tempTopic, new CountLabelExampleSchema(paramSize), producerPropersteis);
 
@@ -186,8 +192,8 @@ public abstract class OnlineLearningModel implements Serializable {
 						return value.getCount() > 0;
 					}
 				});
+//		DataSink<CountLabelExample> sinkFunction=new DataSink<CountLabelExample>(tempDataProducer);
 		nextRoundFilteredData.addSink(tempDataProducer);
-
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
 		middle.addSink(gradTopicProducer);
