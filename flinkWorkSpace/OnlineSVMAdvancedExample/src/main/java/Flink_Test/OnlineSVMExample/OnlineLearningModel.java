@@ -116,14 +116,11 @@ public abstract class OnlineLearningModel implements Serializable {
 		Properties producerPropersteis = new Properties();
 		producerPropersteis.setProperty("bootstrap.servers", bootStrapServers);
 		producerPropersteis.setProperty("zookeeper.connect", zookeeperConnect);
-		producerPropersteis.setProperty("name", "test1");
 
 		// Modified by Andy
 		FlinkKafkaProducer010<DenseVector> gradTopicProducer = new FlinkKafkaProducer010<DenseVector>(gradTopic,
 				new DenseVectorSchema(), producerPropersteis);
-		
 
-		producerPropersteis.setProperty("name", "test2");
 		FlinkKafkaProducer010<CountLabelExample> tempDataProducer = new FlinkKafkaProducer010<CountLabelExample>(
 				tempTopic, new CountLabelExampleSchema(paramSize), producerPropersteis);
 
@@ -192,8 +189,10 @@ public abstract class OnlineLearningModel implements Serializable {
 						return value.getCount() > 0;
 					}
 				});
-//		DataSink<CountLabelExample> sinkFunction=new DataSink<CountLabelExample>(tempDataProducer);
-		nextRoundFilteredData.addSink(tempDataProducer);
+		DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction = nextRoundFilteredData
+				.addSink(tempDataProducer);
+		nextRoundFilteredDataSinkFunction.name("Next round data");
+
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
 		middle.addSink(gradTopicProducer);
