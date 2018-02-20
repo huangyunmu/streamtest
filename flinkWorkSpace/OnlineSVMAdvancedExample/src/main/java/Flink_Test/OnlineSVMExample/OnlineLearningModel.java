@@ -47,7 +47,6 @@ public abstract class OnlineLearningModel implements Serializable {
 							// times.
 	protected String tempTopic;// Used to store the data with count
 
-
 	private static double formalize(double label) {
 		if (label == 1) {
 			return 1;
@@ -152,8 +151,9 @@ public abstract class OnlineLearningModel implements Serializable {
 		});
 
 		// Merge the data stream
-		DataStream<CountLabelExample> mergedData = oldConvertedData;
-		mergedData.union(newConvertedData);
+		DataStream<CountLabelExample> mergedData = newConvertedData;
+
+		mergedData = mergedData.union(oldConvertedData);
 
 		DataStream<LabeledVector> trainData = mergedData.map(new MapFunction<CountLabelExample, LabeledVector>() {
 			private static final long serialVersionUID = 1L;
