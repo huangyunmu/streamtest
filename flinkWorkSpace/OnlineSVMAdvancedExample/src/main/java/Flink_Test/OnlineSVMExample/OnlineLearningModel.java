@@ -140,18 +140,31 @@ public abstract class OnlineLearningModel implements Serializable {
 		// Old data is in a format like as below:
 		// count|lib svm
 		DataStream<String> oldRawData = env.addSource(oldDataConsumer);
-		DataStream<CountLabelExample> oldConvertedData = oldRawData.map(new MapFunction<String, CountLabelExample>() {
+		DataStream<String> filterOldRawData = oldRawData.filter(new FilterFunction<String>() {
+			/**
+			 * 
+			 */
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public CountLabelExample map(String s) {
-				String[] tempSplits = s.split("|");
-				int count = Integer.parseInt(tempSplits[0]);
-				LabeledVector vector = parseExample(tempSplits[1]);
-				CountLabelExample countLabelExample = new CountLabelExample(vector, count);
-				return countLabelExample;
+			public boolean filter(String value) throws Exception {
+				return value.length() > 0;
 			}
 		});
+
+		DataStream<CountLabelExample> oldConvertedData = filterOldRawData
+				.map(new MapFunction<String, CountLabelExample>() {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public CountLabelExample map(String s) {
+						String[] tempSplits = s.split("|");
+						int count = Integer.parseInt(tempSplits[0]);
+						LabeledVector vector = parseExample(tempSplits[1]);
+						CountLabelExample countLabelExample = new CountLabelExample(vector, count);
+						return countLabelExample;
+					}
+				});
 
 		// Merge the data stream
 		DataStream<CountLabelExample> mergedData = newConvertedData;
