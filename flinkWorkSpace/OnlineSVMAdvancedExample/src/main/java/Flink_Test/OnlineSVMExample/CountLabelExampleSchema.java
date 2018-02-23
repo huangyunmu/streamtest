@@ -49,17 +49,17 @@ public class CountLabelExampleSchema
 
 		try {
 
-			out.writeChars(element.toString());
-			// out.writeInt(element.getCount());
-			// out.writeChars("|");
-			// out.writeDouble(label);
-			//
-			// for (int i = 0; i < vector.size(); i++) {
-			// out.writeChars(" ");
-			// out.writeInt(vector.indices()[i]);
-			// out.writeChars(":");
-			// out.writeDouble(vector.data()[i]);
-			// }
+//			out.writeChars(element.toString());
+			out.writeInt(element.getCount());
+			out.writeChars("|");
+			out.writeDouble(label);
+
+			for (int i = 0; i < vector.size(); i++) {
+				out.writeChars(" ");
+				out.writeInt(vector.indices()[i]);
+				out.writeChars(":");
+				out.writeDouble(vector.data()[i]);
+			}
 			out.close();
 			return bytes.toByteArray();
 		} catch (Exception e) {
@@ -89,7 +89,7 @@ public class CountLabelExampleSchema
 		// TODO Auto-generated method stub
 
 		DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
-		String rawData = in.readLine();
+		String rawData = in.readUTF();
 		String[] tempSplits = rawData.split("|");
 		int count = Integer.parseInt(tempSplits[0]);
 		LabeledVector vector = parseExample(tempSplits[1]);
