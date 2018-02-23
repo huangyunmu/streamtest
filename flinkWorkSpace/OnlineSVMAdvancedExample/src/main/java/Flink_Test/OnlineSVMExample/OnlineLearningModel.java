@@ -169,7 +169,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		// Merge the data stream
 		DataStream<CountLabelExample> mergedData = newConvertedData;
 		mergedData = mergedData.union(oldConvertedData);
-
+		
 		DataStream<LabeledVector> trainData = mergedData.map(new MapFunction<CountLabelExample, LabeledVector>() {
 			private static final long serialVersionUID = 1L;
 
@@ -189,6 +189,7 @@ public abstract class OnlineLearningModel implements Serializable {
 						return example;
 					}
 				}).name("next round raw data stream");
+		
 		DataStream<CountLabelExample> nextRoundFilteredData = nextRoundData
 				.filter(new FilterFunction<CountLabelExample>() {
 					/**
@@ -198,14 +199,21 @@ public abstract class OnlineLearningModel implements Serializable {
 
 					@Override
 					public boolean filter(CountLabelExample value) throws Exception {
-						// return value.getCount() > 0;
-						return true;
+						return value.getCount() > 0;
+						// return true;
 					}
 				}).name("next round data stream");
-		DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction = nextRoundFilteredData
-				.addSink(tempDataProducer);
-		nextRoundFilteredDataSinkFunction.name("Next round data sink");
+		
+		nextRoundData.addSink(tempDataProducer);
+		
+		// DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction =
+		// nextRoundFilteredData
+		// .addSink(tempDataProducer);
+		// nextRoundFilteredDataSinkFunction.name("Next round data sink");
 
+		
+//		DataStream<String> testOutStream;
+		
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
 		DataStreamSink<DenseVector> gradSinkFunction = middle.addSink(gradTopicProducer);
