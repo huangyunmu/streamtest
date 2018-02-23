@@ -125,7 +125,7 @@ public abstract class OnlineLearningModel implements Serializable {
 				tempTopic, new CountLabelExampleSchema(paramSize), producerPropersteis);
 
 		// New data is pure lib svm format
-		DataStream<String> newRawData = env.addSource(newDataConsumer);
+		DataStream<String> newRawData = env.addSource(newDataConsumer).name("New data");
 		DataStream<CountLabelExample> newConvertedData = newRawData.map(new MapFunction<String, CountLabelExample>() {
 			private static final long serialVersionUID = 1L;
 
@@ -139,7 +139,8 @@ public abstract class OnlineLearningModel implements Serializable {
 		});
 		// Old data is in a format like as below:
 		// count|lib svm
-		DataStream<String> oldRawData = env.addSource(oldDataConsumer);
+		DataStream<String> oldRawData = env.addSource(oldDataConsumer).name("Old data");
+
 		DataStream<String> filterOldRawData = oldRawData.filter(new FilterFunction<String>() {
 			/**
 			 * 
@@ -162,7 +163,7 @@ public abstract class OnlineLearningModel implements Serializable {
 						int count = Integer.parseInt(tempSplits[0]);
 						LabeledVector vector = parseExample(tempSplits[1]);
 						CountLabelExample countLabelExample = new CountLabelExample(vector, count);
-						System.out.println("Test info:"+countLabelExample.toString());
+						System.out.println("Test info:" + countLabelExample.toString());
 						return countLabelExample;
 					}
 				});
@@ -170,7 +171,6 @@ public abstract class OnlineLearningModel implements Serializable {
 		// Merge the data stream
 		DataStream<CountLabelExample> mergedData = newConvertedData;
 		mergedData = mergedData.union(oldConvertedData);
-		
 
 		DataStream<LabeledVector> trainData = mergedData.map(new MapFunction<CountLabelExample, LabeledVector>() {
 			private static final long serialVersionUID = 1L;
