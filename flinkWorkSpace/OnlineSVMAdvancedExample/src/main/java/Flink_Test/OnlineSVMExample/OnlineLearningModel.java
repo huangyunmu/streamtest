@@ -95,7 +95,7 @@ public abstract class OnlineLearningModel implements Serializable {
 	public void modeling(StreamExecutionEnvironment env) {
 		final int metricInterval = parameterTool.getInt("metric.interval", 1);
 		DataStream<DenseVector> gradients = env.addSource(new FlinkKafkaConsumer010<DenseVector>(gradTopic,
-				new DenseVectorSchema(), parameterTool.getProperties())).broadcast();
+				new DenseVectorSchema(), parameterTool.getProperties())).name("gradient").broadcast();
 
 		env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
