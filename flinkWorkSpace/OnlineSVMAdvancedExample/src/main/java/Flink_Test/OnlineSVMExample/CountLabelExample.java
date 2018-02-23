@@ -39,9 +39,11 @@ public class CountLabelExample {
 		result = result + count + "|";
 		result = result + this.vector.label();
 		SparseVector sparseVector = (SparseVector) vector.vector();
-		for (int i = 0; i < sparseVector.size(); i++) {
-			result = result + " " + sparseVector.indices()[i] + ":" + sparseVector.data()[i];
-		}
+		// for (int i = 0; i < sparseVector.size(); i++) {
+		// result = result + " " + sparseVector.indices()[i] + ":" +
+		// sparseVector.data()[i] + "\n";
+		// }
+		result = result + sparseVector.toString();
 		return result;
 	}
 
