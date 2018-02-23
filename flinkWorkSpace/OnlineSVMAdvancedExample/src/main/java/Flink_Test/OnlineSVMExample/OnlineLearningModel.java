@@ -8,6 +8,7 @@ import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
+import org.apache.flink.core.fs.FileSystem.WriteMode;
 import org.apache.flink.ml.common.LabeledVector;
 import org.apache.flink.ml.math.DenseVector;
 import org.apache.flink.ml.math.SparseVector;
@@ -219,7 +220,7 @@ public abstract class OnlineLearningModel implements Serializable {
 			}
 
 		});
-		testOutStream.print();
+		testOutStream.writeAsText("file:///data/opt/course/1155086998/data/testResult.txt", WriteMode.OVERWRITE);
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
