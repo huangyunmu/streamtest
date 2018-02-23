@@ -161,7 +161,6 @@ public abstract class OnlineLearningModel implements Serializable {
 						int count = Integer.parseInt(tempSplits[0]);
 						LabeledVector vector = parseExample(tempSplits[1]);
 						CountLabelExample countLabelExample = new CountLabelExample(vector, count);
-						System.out.println("Test info:" + countLabelExample.toString());
 						return countLabelExample;
 					}
 				});
@@ -211,7 +210,16 @@ public abstract class OnlineLearningModel implements Serializable {
 		// .addSink(tempDataProducer);
 		// nextRoundFilteredDataSinkFunction.name("Next round data sink");
 
-		// DataStream<String> testOutStream;
+		DataStream<String> testOutStream;
+		testOutStream = nextRoundFilteredData.map(new MapFunction<CountLabelExample, String>() {
+			private static final long serialVersionUID = 1L;
+
+			public String map(CountLabelExample example) {
+				return "Test Info:" + example.toString();
+			}
+
+		});
+		testOutStream.print();
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
