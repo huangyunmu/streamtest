@@ -179,7 +179,7 @@ public abstract class OnlineLearningModel implements Serializable {
 			public LabeledVector map(CountLabelExample example) {
 				return example.getVector();
 			}
-		});
+		}).name("train data");
 
 		DataStream<CountLabelExample> nextRoundData = mergedData
 				.map(new MapFunction<CountLabelExample, CountLabelExample>() {
@@ -205,12 +205,12 @@ public abstract class OnlineLearningModel implements Serializable {
 				});
 		DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction = nextRoundFilteredData
 				.addSink(tempDataProducer);
-		nextRoundFilteredDataSinkFunction.name("Next round data");
+		nextRoundFilteredDataSinkFunction.name("next round data sink");
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
 		DataStreamSink<DenseVector> gradSinkFunction = middle.addSink(gradTopicProducer);
-		gradSinkFunction.name("Gradient");
+		gradSinkFunction.name("gradient sink");
 		middle.process(new ProcessFunction<DenseVector, Long>() {
 			@Override
 			public void processElement(DenseVector value, Context ctx, Collector<Long> out) throws Exception {
@@ -244,7 +244,7 @@ public abstract class OnlineLearningModel implements Serializable {
 						String result = String.format("Average latency: %s ms, throughput: %s rec/sec", value.f0,
 								value.f1);
 						System.out.println(result);
-						System.out.println("2018-02-10");
+						System.out.println("2018-02-23");
 						return result;
 					}
 				}).print();
