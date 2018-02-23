@@ -89,7 +89,7 @@ public class CountLabelExampleSchema
 		// TODO Auto-generated method stub
 
 		DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
-		String rawData = in.readUTF();
+		String rawData = in.readLine();
 		String[] tempSplits = rawData.split("|");
 		int count = Integer.parseInt(tempSplits[0]);
 		LabeledVector vector = parseExample(tempSplits[1]);
