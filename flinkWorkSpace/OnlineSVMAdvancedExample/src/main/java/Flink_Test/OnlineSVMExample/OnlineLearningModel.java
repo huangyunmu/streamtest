@@ -198,7 +198,8 @@ public abstract class OnlineLearningModel implements Serializable {
 
 					@Override
 					public boolean filter(CountLabelExample value) throws Exception {
-						return value.getCount() > 0;
+						// return value.getCount() > 0;
+						return true;
 					}
 				}).name("next round data stream");
 		DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction = nextRoundFilteredData
