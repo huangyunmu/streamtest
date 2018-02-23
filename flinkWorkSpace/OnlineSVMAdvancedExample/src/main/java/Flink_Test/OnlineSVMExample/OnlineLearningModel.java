@@ -108,9 +108,7 @@ public abstract class OnlineLearningModel implements Serializable {
 				new SimpleStringSchema(), parameterTool.getProperties());
 		// For old data (copy of new data for multiple training) read the data
 		// in this training
-		// oldDataConsumer.setStartFromLatest();
-		// Test
-		oldDataConsumer.setStartFromEarliest();
+		oldDataConsumer.setStartFromLatest();
 
 		// Set up data producer
 		Properties producerPropersteis = new Properties();
