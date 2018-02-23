@@ -188,7 +188,7 @@ public abstract class OnlineLearningModel implements Serializable {
 						example.decreaseCount();
 						return example;
 					}
-				});
+				}).name("next round raw data stream");
 		DataStream<CountLabelExample> nextRoundFilteredData = nextRoundData
 				.filter(new FilterFunction<CountLabelExample>() {
 					/**
@@ -200,15 +200,15 @@ public abstract class OnlineLearningModel implements Serializable {
 					public boolean filter(CountLabelExample value) throws Exception {
 						return value.getCount() > 0;
 					}
-				});
+				}).name("next round data stream");
 		DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction = nextRoundFilteredData
 				.addSink(tempDataProducer);
-		nextRoundFilteredDataSinkFunction.name("next round data sink");
+		nextRoundFilteredDataSinkFunction.name("Next round data sink");
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
 		DataStreamSink<DenseVector> gradSinkFunction = middle.addSink(gradTopicProducer);
-		gradSinkFunction.name("gradient sink");
+		gradSinkFunction.name("Gradient sink");
 		middle.process(new ProcessFunction<DenseVector, Long>() {
 			@Override
 			public void processElement(DenseVector value, Context ctx, Collector<Long> out) throws Exception {
