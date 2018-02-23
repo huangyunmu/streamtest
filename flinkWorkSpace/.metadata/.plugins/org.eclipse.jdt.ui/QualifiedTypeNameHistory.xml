@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.apache.flink.api.common.functions.MapFunction"/>
-<fullyQualifiedTypeName name="org.apache.flink.streaming.api.datastream.DataStreamSink"/>
 <fullyQualifiedTypeName name="LogRegBatch.LogRegBatch.LinearRegression.Data"/>
 <fullyQualifiedTypeName name="LogRegBatch.LogRegBatch.LinearRegression.Params"/>
 <fullyQualifiedTypeName name="org.apache.flink.api.java.ExecutionEnvironment"/>
@@ -21,4 +20,6 @@
 <fullyQualifiedTypeName name="org.apache.flink.api.common.functions.FilterFunction"/>
 <fullyQualifiedTypeName name="org.apache.flink.ml.math.Vector"/>
 <fullyQualifiedTypeName name="org.apache.flink.ml.math.SparseVector"/>
+<fullyQualifiedTypeName name="org.apache.flink.streaming.api.datastream.DataStreamSink"/>
+<fullyQualifiedTypeName name="org.apache.flink.streaming.api.functions.sink.SinkFunction"/>
 </qualifiedTypeNameHistroy>

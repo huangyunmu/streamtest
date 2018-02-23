@@ -162,14 +162,15 @@ public abstract class OnlineLearningModel implements Serializable {
 						int count = Integer.parseInt(tempSplits[0]);
 						LabeledVector vector = parseExample(tempSplits[1]);
 						CountLabelExample countLabelExample = new CountLabelExample(vector, count);
+						System.out.println("Test info:"+countLabelExample.toString());
 						return countLabelExample;
 					}
 				});
 
 		// Merge the data stream
 		DataStream<CountLabelExample> mergedData = newConvertedData;
-
 		mergedData = mergedData.union(oldConvertedData);
+		
 
 		DataStream<LabeledVector> trainData = mergedData.map(new MapFunction<CountLabelExample, LabeledVector>() {
 			private static final long serialVersionUID = 1L;
