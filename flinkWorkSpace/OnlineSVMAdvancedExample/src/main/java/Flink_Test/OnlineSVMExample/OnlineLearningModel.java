@@ -220,7 +220,7 @@ public abstract class OnlineLearningModel implements Serializable {
 			}
 
 		}).name("Test output stream");
-		testOutStream.writeAsText("file:///data/opt/course/1155086998/data/testResult.txt", WriteMode.OVERWRITE);
+		testOutStream.writeAsText("file:///data/opt/course/1155086998/data/testInfo", WriteMode.OVERWRITE);
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
