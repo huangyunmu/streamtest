@@ -26,7 +26,7 @@ public class OnlineSVMModel extends OnlineLearningModel {
 			private boolean inited = false;
 			private Queue<Integer> itemQueue = null;
 			private int correctCount = 0;
-			private int countInterval = 100;
+			private int countInterval = 500;
 			private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 
 			private void init() {
