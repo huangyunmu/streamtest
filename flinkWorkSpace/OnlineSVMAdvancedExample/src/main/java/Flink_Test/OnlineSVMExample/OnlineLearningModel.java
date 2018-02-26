@@ -169,7 +169,21 @@ public abstract class OnlineLearningModel implements Serializable {
 		// return countLabelExample;
 		// }
 		// });
-		DataStream<CountLabelExample> oldConvertedData = env.addSource(oldDataConsumer).name("Old data");
+		DataStream<CountLabelExample> oldRawData = env.addSource(oldDataConsumer).name("Old data");
+		DataStream<CountLabelExample> filterOldRawData = oldRawData.filter(new FilterFunction<CountLabelExample>() {
+			/**
+			*
+			*/
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean filter(CountLabelExample value) throws Exception {
+				return value != null;
+			}
+		});
+
+		DataStream<CountLabelExample> oldConvertedData = filterOldRawData;
+
 		// Merge the data stream
 		DataStream<CountLabelExample> mergedData = newConvertedData;
 		mergedData = mergedData.union(oldConvertedData);
