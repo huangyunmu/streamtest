@@ -222,8 +222,10 @@ public abstract class OnlineLearningModel implements Serializable {
 					}
 				}).name("next round data stream");
 
-		nextRoundData.addSink(tempDataProducer);
-
+		DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction = nextRoundFilteredData
+				.addSink(tempDataProducer);
+		nextRoundFilteredDataSinkFunction.name("next round filtered data sink");
+		
 		// DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction =
 		// nextRoundFilteredData
 		// .addSink(tempDataProducer);
