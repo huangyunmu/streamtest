@@ -93,9 +93,8 @@ public class OnlineSVMModel extends OnlineLearningModel {
 
 					// Print the current accuracy
 					String version = "Advanced Version";
-					System.out.println(version);
 					String timeStamp = df.format(new Date());
-					String message = "Current time:" + timeStamp + "\n";
+					String message = version + "Current time:" + timeStamp + "\n";
 					message = message + "Correct count:" + correctCount + "\n";
 					message = message + "Currect accuracy:" + (correctCount / (float) itemQueue.size());
 					System.out.println(message);
