@@ -57,6 +57,7 @@ public class CountLabelExampleSchema
 			out.close();
 			return bytes.toByteArray();
 		} catch (Exception e) {
+			System.out.println("Error!2018-02-26");
 			return new byte[0];
 		}
 
