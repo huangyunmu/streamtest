@@ -10,7 +10,7 @@
 ./target/OnlineSVMExample-0.0.1.jar \
 --train.frequency 3 \
 --data.topic a9_test_4_data_topic \
---temp.topic a9_temp_1_topic \
+--temp.topic a9_temp_2_topic \
 --feature.num 123 \
 --learning.rate 0.01 \
 --update.frequency 1 \
