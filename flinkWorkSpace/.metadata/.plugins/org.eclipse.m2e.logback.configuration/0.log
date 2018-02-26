@@ -9003,3 +9003,11 @@ Caused by: org.codehaus.plexus.util.xml.pull.XmlPullParserException: end tag nam
 2018-02-26 12:07:29,976 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMAdvancedExample\src\main\resources
 2018-02-26 12:07:29,977 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2018-02-26 12:07:29,977 [Worker-68] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMAdvancedExample\src\test\resources
+2018-02-26 13:03:22,702 [Worker-90] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-02-26 13:03:22,703 [Worker-90] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMAdvancedExample\src\main\resources
+2018-02-26 13:03:22,704 [Worker-90] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-02-26 13:03:22,704 [Worker-90] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMAdvancedExample\src\test\resources
+2018-02-26 13:03:28,783 [Worker-91] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-02-26 13:03:28,783 [Worker-91] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMAdvancedExample\src\main\resources
+2018-02-26 13:03:28,784 [Worker-91] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2018-02-26 13:03:28,784 [Worker-91] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSpace\OnlineSVMAdvancedExample\src\test\resources

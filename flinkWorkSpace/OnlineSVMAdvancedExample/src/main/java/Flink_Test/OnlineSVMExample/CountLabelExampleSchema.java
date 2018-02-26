@@ -15,15 +15,11 @@ import org.apache.flink.streaming.util.serialization.SerializationSchema;
 
 public class CountLabelExampleSchema
 		implements DeserializationSchema<CountLabelExample>, SerializationSchema<CountLabelExample> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int paramSize;
-
-	private static double formalize(double label) {
-		if (label == 1) {
-			return 1;
-		} else {
-			return -1;
-		}
-	}
 
 	public CountLabelExampleSchema() {
 
