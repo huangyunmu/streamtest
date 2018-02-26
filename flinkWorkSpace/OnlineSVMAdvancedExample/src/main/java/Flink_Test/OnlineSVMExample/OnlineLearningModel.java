@@ -105,8 +105,8 @@ public abstract class OnlineLearningModel implements Serializable {
 		// beginning
 		newDataConsumer.setStartFromEarliest();
 
-		FlinkKafkaConsumer010<String> oldDataConsumer = new FlinkKafkaConsumer010<String>(tempTopic,
-				new SimpleStringSchema(), parameterTool.getProperties());
+		FlinkKafkaConsumer010<CountLabelExample> oldDataConsumer = new FlinkKafkaConsumer010<CountLabelExample>(
+				tempTopic, new CountLabelExampleSchema(paramSize), parameterTool.getProperties());
 		// For old data (copy of new data for multiple training) read the data
 		// in this training
 		oldDataConsumer.setStartFromLatest();
@@ -137,35 +137,39 @@ public abstract class OnlineLearningModel implements Serializable {
 			}
 		});
 		// Old data is in a format like as below:
-		// count|lib svm
-		DataStream<String> oldRawData = env.addSource(oldDataConsumer).name("Old data");
+		// count datalength lib svm
 
-		DataStream<String> filterOldRawData = oldRawData.filter(new FilterFunction<String>() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public boolean filter(String value) throws Exception {
-				return value.length() > 0;
-			}
-		});
-
-		DataStream<CountLabelExample> oldConvertedData = filterOldRawData
-				.map(new MapFunction<String, CountLabelExample>() {
-					private static final long serialVersionUID = 1L;
-
-					@Override
-					public CountLabelExample map(String s) {
-						String[] tempSplits = s.split("|");
-						int count = Integer.parseInt(tempSplits[0]);
-						LabeledVector vector = parseExample(tempSplits[1]);
-						CountLabelExample countLabelExample = new CountLabelExample(vector, count);
-						return countLabelExample;
-					}
-				});
-
+		// DataStream<String> oldRawData =
+		// env.addSource(oldDataConsumer).name("Old data");
+		//
+		// DataStream<String> filterOldRawData = oldRawData.filter(new
+		// FilterFunction<String>() {
+		// /**
+		// *
+		// */
+		// private static final long serialVersionUID = 1L;
+		//
+		// @Override
+		// public boolean filter(String value) throws Exception {
+		// return value.length() > 0;
+		// }
+		// });
+		//
+		// DataStream<CountLabelExample> oldConvertedData = filterOldRawData
+		// .map(new MapFunction<String, CountLabelExample>() {
+		// private static final long serialVersionUID = 1L;
+		//
+		// @Override
+		// public CountLabelExample map(String s) {
+		// String[] tempSplits = s.split("|");
+		// int count = Integer.parseInt(tempSplits[0]);
+		// LabeledVector vector = parseExample(tempSplits[1]);
+		// CountLabelExample countLabelExample = new CountLabelExample(vector,
+		// count);
+		// return countLabelExample;
+		// }
+		// });
+		DataStream<CountLabelExample> oldConvertedData = env.addSource(oldDataConsumer).name("Old data");
 		// Merge the data stream
 		DataStream<CountLabelExample> mergedData = newConvertedData;
 		mergedData = mergedData.union(oldConvertedData);

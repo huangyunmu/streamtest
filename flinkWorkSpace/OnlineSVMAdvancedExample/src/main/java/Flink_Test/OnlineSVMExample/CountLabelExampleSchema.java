@@ -24,6 +24,7 @@ public class CountLabelExampleSchema
 			return -1;
 		}
 	}
+
 	public CountLabelExampleSchema() {
 
 	}
@@ -45,19 +46,16 @@ public class CountLabelExampleSchema
 		DataOutputStream out = new DataOutputStream(bytes);
 		double label = element.getVector().label();
 		SparseVector vector = (SparseVector) (element.getVector().vector());
-		int count = element.getCount();
+		int dataLength = vector.data().length;
 
 		try {
 
-//			out.writeChars(element.toString());
+			// out.writeChars(element.toString());
 			out.writeInt(element.getCount());
-			out.writeChars("|");
+			out.writeInt(dataLength);
 			out.writeDouble(label);
-
 			for (int i = 0; i < vector.size(); i++) {
-				out.writeChars(" ");
 				out.writeInt(vector.indices()[i]);
-				out.writeChars(":");
 				out.writeDouble(vector.data()[i]);
 			}
 			out.close();
@@ -68,31 +66,24 @@ public class CountLabelExampleSchema
 
 	}
 
-	private LabeledVector parseExample(String s) {
-		// format of s: timestamp sample
-		// format of sample: label idx1:val1 idx2:val2 idx3:val3 ...
-		String[] splits = s.split("\\s");
-		double label = formalize(Integer.valueOf(splits[0]));
-
-		int[] indices = new int[splits.length - 1];
-		double[] values = new double[splits.length - 1];
-		for (int i = 1; i < splits.length; i++) {
-			String[] iv = splits[i].split(":");
-			indices[i - 1] = Integer.valueOf(iv[0]);
-			values[i - 1] = Double.valueOf(iv[1]);
-		}
-		return new LabeledVector(label, new SparseVector(paramSize, indices, values));
-	}
-
 	@Override
 	public CountLabelExample deserialize(byte[] message) throws IOException {
 		// TODO Auto-generated method stub
 
 		DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
-		String rawData = in.readUTF();
-		String[] tempSplits = rawData.split("|");
-		int count = Integer.parseInt(tempSplits[0]);
-		LabeledVector vector = parseExample(tempSplits[1]);
+		// String rawData = in.readUTF();
+		// String[] tempSplits = rawData.split("|");
+
+		int count = in.readInt();
+		int dataLength = in.readInt();
+		double label = in.readDouble();
+		int[] indices = new int[dataLength];
+		double[] values = new double[dataLength];
+		for (int i = 0; i < dataLength; i++) {
+			indices[i] = in.readInt();
+			values[i] = in.readDouble();
+		}
+		LabeledVector vector = new LabeledVector(label, new SparseVector(paramSize, indices, values));
 		CountLabelExample countLabelExample = new CountLabelExample(vector, count);
 		return countLabelExample;
 	}

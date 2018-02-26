@@ -43,7 +43,7 @@ public class CountLabelExample {
 		for (int i = 0; i < length; i++) {
 			result = result + " " + sparseVector.indices()[i] + ":" + sparseVector.data()[i];
 		}
-		result = result + "\n";
+		// result = result + "\n";
 		// result = result + sparseVector.toString();
 		return result;
 	}
