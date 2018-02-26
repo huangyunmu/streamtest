@@ -50,7 +50,7 @@ public class CountLabelExampleSchema
 			out.writeInt(element.getCount());
 			out.writeInt(dataLength);
 			out.writeDouble(label);
-			for (int i = 0; i < vector.size(); i++) {
+			for (int i = 0; i < dataLength; i++) {
 				out.writeInt(vector.indices()[i]);
 				out.writeDouble(vector.data()[i]);
 			}
