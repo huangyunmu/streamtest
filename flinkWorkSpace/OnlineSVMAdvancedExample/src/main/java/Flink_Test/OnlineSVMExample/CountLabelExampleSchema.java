@@ -67,20 +67,24 @@ public class CountLabelExampleSchema
 		// TODO Auto-generated method stub
 
 		DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
+		CountLabelExample countLabelExample = null;
 		// String rawData = in.readUTF();
 		// String[] tempSplits = rawData.split("|");
-
-		int count = in.readInt();
-		int dataLength = in.readInt();
-		double label = in.readDouble();
-		int[] indices = new int[dataLength];
-		double[] values = new double[dataLength];
-		for (int i = 0; i < dataLength; i++) {
-			indices[i] = in.readInt();
-			values[i] = in.readDouble();
+		try {
+			int count = in.readInt();
+			int dataLength = in.readInt();
+			double label = in.readDouble();
+			int[] indices = new int[dataLength];
+			double[] values = new double[dataLength];
+			for (int i = 0; i < dataLength; i++) {
+				indices[i] = in.readInt();
+				values[i] = in.readDouble();
+			}
+			LabeledVector vector = new LabeledVector(label, new SparseVector(paramSize, indices, values));
+			countLabelExample = new CountLabelExample(vector, count);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		LabeledVector vector = new LabeledVector(label, new SparseVector(paramSize, indices, values));
-		CountLabelExample countLabelExample = new CountLabelExample(vector, count);
 		return countLabelExample;
 	}
 
