@@ -96,7 +96,7 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					String timeStamp = df.format(new Date());
 					String message = version + "Current time:" + timeStamp + "\n";
 					message = message + "Correct count:" + correctCount + "\n";
-					message = message + "Currect accuracy:" + ((float) correctCount / itemQueue.size());
+					message = message + "Currect accuracy:" + ((float) correctCount / countInterval);
 					System.out.println(message);
 				}
 
