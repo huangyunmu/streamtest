@@ -279,7 +279,6 @@ public abstract class OnlineLearningModel implements Serializable {
 						String result = String.format("Average latency: %s ms, throughput: %s rec/sec", value.f0,
 								value.f1);
 						 System.out.println(result);
-						 System.out.println("2018-02-26");
 						return result;
 					}
 				}).print().name("monitor stream");
