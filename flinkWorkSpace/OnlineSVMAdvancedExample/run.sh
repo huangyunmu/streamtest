@@ -9,7 +9,7 @@
 -c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
 --train.frequency 5 \
---data.topic a9_test_5_data_topic \
+--data.topic a9_test_6_data_topic \
 --temp.topic a9_temp_2_topic \
 --feature.num 123 \
 --learning.rate 0.01 \
