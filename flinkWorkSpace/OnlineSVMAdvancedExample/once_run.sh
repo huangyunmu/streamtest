@@ -11,7 +11,7 @@
 --train.frequency 1 \
 --data.topic a9_test_6_data_topic \
 --temp.topic a9_temp_2_topic \
---feature.num 123 \
+--feature.num 124 \
 --learning.rate 0.01 \
 --update.frequency 1 \
 --grad.topic a9_online_svm_grad \
