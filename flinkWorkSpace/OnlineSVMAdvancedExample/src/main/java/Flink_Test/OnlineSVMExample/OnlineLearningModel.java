@@ -93,9 +93,6 @@ public abstract class OnlineLearningModel implements Serializable {
 
 	public void modeling(StreamExecutionEnvironment env) {
 		final int metricInterval = parameterTool.getInt("metric.interval", 1);
-		DataStream<DenseVector> gradients = env.addSource(new FlinkKafkaConsumer010<DenseVector>(gradTopic,
-				new DenseVectorSchema(), parameterTool.getProperties())).name("gradient").broadcast();
-
 		env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
 		// Set up data consumer
@@ -110,6 +107,12 @@ public abstract class OnlineLearningModel implements Serializable {
 		// For old data (copy of new data for multiple training) read the data
 		// in this training
 		oldDataConsumer.setStartFromLatest();
+
+		FlinkKafkaConsumer010<DenseVector> gradConsumer = new FlinkKafkaConsumer010<DenseVector>(gradTopic,
+				new DenseVectorSchema(), parameterTool.getProperties());
+		gradConsumer.setStartFromLatest();
+
+		DataStream<DenseVector> gradients = env.addSource(gradConsumer).name("gradient").broadcast();
 
 		// Set up data producer
 		Properties producerPropersteis = new Properties();
@@ -225,7 +228,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction = nextRoundFilteredData
 				.addSink(tempDataProducer);
 		nextRoundFilteredDataSinkFunction.name("next round filtered data sink");
-		
+
 		// DataStreamSink<CountLabelExample> nextRoundFilteredDataSinkFunction =
 		// nextRoundFilteredData
 		// .addSink(tempDataProducer);
@@ -278,7 +281,7 @@ public abstract class OnlineLearningModel implements Serializable {
 					public String map(Tuple2<Double, Double> value) {
 						String result = String.format("Average latency: %s ms, throughput: %s rec/sec", value.f0,
 								value.f1);
-						 System.out.println(result);
+						System.out.println(result);
 						return result;
 					}
 				}).print().name("monitor stream");
