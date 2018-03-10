@@ -38,9 +38,8 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					updateCnt = 0;
 					itemQueue = new LinkedList<Integer>();
 					correctCount = 0;
-					System.out.println("Start");
 					String timeStamp = df.format(new Date());
-					System.out.println(timeStamp);
+					System.out.println("Start:"+timeStamp);
 
 				}
 			}
@@ -95,9 +94,8 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					latestParams = oldParams.copy();
 
 					// Print the current accuracy
-					String version = "Advanced Version";
 					String timeStamp = df.format(new Date());
-					String message = version + "Current time:" + timeStamp + "\n";
+					String message = "Current time:" + timeStamp + "\n";
 					message = message + "Correct count:" + correctCount + "\n";
 					message = message + "Currect accuracy:" + ((float) correctCount / itemQueue.size());
 					System.out.println(message);
