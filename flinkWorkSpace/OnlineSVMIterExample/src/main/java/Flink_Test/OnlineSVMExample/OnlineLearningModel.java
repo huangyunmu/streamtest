@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Properties;
 
 import org.apache.flink.api.common.functions.AggregateFunction;
+import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
@@ -148,6 +149,14 @@ public abstract class OnlineLearningModel implements Serializable {
 				return parseExample(example);
 			}
 		}).name("train data");
+		
+		DataStream<String> feedback = iterData.filter(new FilterFunction<String>(){
+		    @Override
+		    public boolean filter(String value) throws Exception {
+		        return true;
+		    }
+		});
+		iterData.closeWith(feedback);
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
