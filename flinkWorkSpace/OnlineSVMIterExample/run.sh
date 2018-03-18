@@ -14,7 +14,7 @@
 --feature.num 124 \
 --learning.rate 0.01 \
 --update.frequency 50 \
---grad.topic a9_online_svm_3_grad \
+--grad.topic a9_online_svm_4_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
 2>&1 | tee -a log.txt
