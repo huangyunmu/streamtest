@@ -129,31 +129,47 @@ public abstract class OnlineLearningModel implements Serializable {
 				new DenseVectorSchema(), producerPropersteis);
 
 		// New data is pure lib svm format
-		DataStream<String> newData = env.addSource(newDataConsumer).name("New data");
-		// DataStream<Tuple2<Integer,Integer>> test=newData.map(new
-		// MapFunction<Tuple2<Integer,Integer>, String>(){
-		// @Override
-		// public Tuple2<Integer,Integer> map(String s) {
-		// return new Tuple2<Integer,Integer>(2,2);
-		// }
-		// }
-		// });
-		IterativeStream<String> iterData = newData.map(new InputMap()).iterate(trainFreq);
-
-	
-		DataStream<LabeledVector> trainData = iterData.map(new MapFunction<String, LabeledVector>() {
+		DataStream<String> rawData = env.addSource(newDataConsumer).name("New data");
+		
+		
+		DataStream<CountLabelExample> convertedData = rawData.map(new MapFunction<String, CountLabelExample>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public LabeledVector map(String example) {
-				return parseExample(example);
+			public CountLabelExample map(String s) {
+				LabeledVector vector = parseExample(s);
+				int count = trainFreq;
+				CountLabelExample countLabelExample = new CountLabelExample(vector, count);
+				return countLabelExample;
+			}
+		}).name("converted data");
+		
+		IterativeStream<CountLabelExample> iterData = convertedData.iterate(1000);
+        
+	    
+		DataStream<LabeledVector> trainData = iterData.map(new MapFunction<CountLabelExample, LabeledVector>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public LabeledVector map(CountLabelExample example) {
+				return example.getVector();
 			}
 		}).name("train data");
 		
-		DataStream<String> feedback = iterData.filter(new FilterFunction<String>(){
+		DataStream<CountLabelExample> stepStream=iterData.map(new MapFunction<CountLabelExample, CountLabelExample>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public CountLabelExample map(CountLabelExample example) {
+				example.decreaseCount();
+				return example;
+			}
+		}).name("step stream");
+		
+		DataStream<CountLabelExample> feedback = stepStream.filter(new FilterFunction<CountLabelExample>(){
 		    @Override
-		    public boolean filter(String value) throws Exception {
-		        return true;
+		    public boolean filter(CountLabelExample value) throws Exception {
+		        return value.getCount() > 0;
 		    }
 		});
 		iterData.closeWith(feedback);
