@@ -17,10 +17,10 @@
 <fullyQualifiedTypeName name="java.util.Properties"/>
 <fullyQualifiedTypeName name="java.util.Queue"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
-<fullyQualifiedTypeName name="org.apache.flink.api.common.functions.FilterFunction"/>
 <fullyQualifiedTypeName name="org.apache.flink.ml.math.Vector"/>
 <fullyQualifiedTypeName name="org.apache.flink.ml.math.SparseVector"/>
 <fullyQualifiedTypeName name="org.apache.flink.streaming.api.datastream.DataStreamSink"/>
 <fullyQualifiedTypeName name="org.apache.flink.streaming.api.functions.sink.SinkFunction"/>
 <fullyQualifiedTypeName name="javax.swing.InputMap"/>
+<fullyQualifiedTypeName name="org.apache.flink.api.common.functions.FilterFunction"/>
 </qualifiedTypeNameHistroy>
