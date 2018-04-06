@@ -10,11 +10,10 @@
 ./target/OnlineSVMExample-0.0.1.jar \
 --train.frequency 200 \
 --data.topic a9_test_15_data_topic \
---temp.topic a9_temp_5_topic \
 --feature.num 124 \
 --learning.rate 0.01 \
 --update.frequency 50 \
---grad.topic a9_online_svm_4_grad \
+--grad.topic a9_online_svm_5_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
 2>&1 | tee -a log.txt
