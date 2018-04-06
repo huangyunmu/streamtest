@@ -167,11 +167,16 @@ public abstract class OnlineLearningModel implements Serializable {
 		}).name("step stream");
 		
 		DataStream<CountLabelExample> feedback = stepStream.filter(new FilterFunction<CountLabelExample>(){
-		    @Override
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
 		    public boolean filter(CountLabelExample value) throws Exception {
 		        return value.getCount() > 0;
 		    }
-		});
+		}).name("feedback stream");
 		iterData.closeWith(feedback);
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
