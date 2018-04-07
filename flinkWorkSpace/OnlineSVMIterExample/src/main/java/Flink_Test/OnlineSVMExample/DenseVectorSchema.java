@@ -34,7 +34,6 @@ public class DenseVectorSchema implements DeserializationSchema<DenseVector>, Se
                 if(i%1000==0){
                 	out.flush();
                 }
-                out.flush();
             }
             out.close();
             return bytes.toByteArray();
