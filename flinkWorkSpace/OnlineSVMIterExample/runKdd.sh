@@ -9,10 +9,10 @@
 -c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
 --train.frequency 10 \
---data.topic kdd_test_2_data_topic \
+--data.topic kdd_test_2_part_data_topic \
 --feature.num 20216831  \
 --learning.rate 0.01 \
---update.frequency 10000 \
+--update.frequency 1000 \
 --grad.topic kdd_online_svm_1_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
