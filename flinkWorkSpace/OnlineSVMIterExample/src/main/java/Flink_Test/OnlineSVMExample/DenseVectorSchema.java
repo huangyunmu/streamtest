@@ -29,7 +29,12 @@ public class DenseVectorSchema implements DeserializationSchema<DenseVector>, Se
         try {
             out.writeInt(vec.size());
             for (int i = 0; i < vec.size(); i++) {
+            	
                 out.writeDouble(vec.data()[i]);
+                if(i%1000==0){
+                	out.flush();
+                }
+                out.flush();
             }
             out.close();
             return bytes.toByteArray();
