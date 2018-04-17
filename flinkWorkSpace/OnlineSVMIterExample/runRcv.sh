@@ -10,7 +10,7 @@
 ./target/OnlineSVMExample-0.0.1.jar \
 --train.frequency 50 \
 --data.topic rcv_test_1_data_topic \
---feature.num 47236  \
+--feature.num 47237  \
 --learning.rate 0.01 \
 --update.frequency 50 \
 --grad.topic rcv_online_svm_1_grad \
