@@ -31,9 +31,9 @@ public class DenseVectorSchema implements DeserializationSchema<DenseVector>, Se
             for (int i = 0; i < vec.size(); i++) {
             	
                 out.writeDouble(vec.data()[i]);
-                if(i%1000==0){
-                	out.flush();
-                }
+//                if(i%1000==0){
+//                	out.flush();
+//                }
             }
             out.close();
             return bytes.toByteArray();
