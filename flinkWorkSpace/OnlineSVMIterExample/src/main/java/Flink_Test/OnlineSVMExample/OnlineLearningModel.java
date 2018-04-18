@@ -142,7 +142,7 @@ public abstract class OnlineLearningModel implements Serializable {
 			}
 		}).name("converted data");
 		
-		IterativeStream<CountLabelExample> iterData = convertedData.iterate(1000);
+		IterativeStream<CountLabelExample> iterData = convertedData.iterate(4000);
         
 	    
 		DataStream<LabeledVector> trainData = iterData.map(new MapFunction<CountLabelExample, LabeledVector>() {
