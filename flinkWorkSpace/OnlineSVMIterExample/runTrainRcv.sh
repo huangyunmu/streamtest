@@ -13,7 +13,7 @@
 --feature.num 47237  \
 --learning.rate 0.01 \
 --update.frequency 250 \
---grad.topic rcv_online_svm_11_grad \
+--grad.topic rcv_online_svm_12_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
 --rawdata.parallelism 40 \
