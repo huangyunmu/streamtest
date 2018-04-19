@@ -30,7 +30,6 @@ public class OnlineSVMModel extends OnlineLearningModel {
 			private Queue<Integer> newDataQueue = null;
 			private int allDataCorrectCount = 0;
 			private int newDataCorrectCount = 0;
-			private int trainFrequency = 2500;
 			private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 
 			private void init() {
@@ -41,7 +40,9 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					accuGradient = newParams();
 					updateCnt = 0;
 					allDataQueue = new LinkedList<Integer>();
+					newDataQueue = new LinkedList<Integer>();
 					allDataCorrectCount = 0;
+					newDataCorrectCount = 0;
 					String timeStamp = df.format(new Date());
 					System.out.println("Start:" + timeStamp);
 
@@ -61,7 +62,7 @@ public class OnlineSVMModel extends OnlineLearningModel {
 				LabeledVector v = cv.getVector();
 				int trainCount = cv.getCount();
 				boolean isNew = false;
-				if (trainCount == trainFrequency) {
+				if (trainCount == trainFreq) {
 					isNew = true;
 				} else {
 					isNew = false;
@@ -71,7 +72,7 @@ public class OnlineSVMModel extends OnlineLearningModel {
 				for (int i = 0; i < paramSize; i++) {
 					latestParams.data()[i] *= dec;
 				}
-				//Remove the first element in the queue
+				// Remove the first element in the queue
 				if (allDataQueue.size() == allDataCountFreq) {
 					Integer temp = allDataQueue.poll();
 					if (temp == 1) {
@@ -84,7 +85,7 @@ public class OnlineSVMModel extends OnlineLearningModel {
 						newDataCorrectCount--;
 					}
 				}
-				//update fac if needed
+				// update fac if needed
 				if (fac < 1) {
 					SparseVector features = (SparseVector) v.vector();
 					double[] values = features.data();
