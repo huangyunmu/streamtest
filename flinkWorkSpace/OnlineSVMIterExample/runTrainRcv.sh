@@ -9,11 +9,11 @@
 -c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
 --train.frequency 5000 \
---data.topic rcv_train_5_part_data_topic \
+--data.topic rcv_train_6_part_data_topic \
 --feature.num 47237  \
 --learning.rate 0.01 \
 --update.frequency 250 \
---grad.topic rcv_online_svm_15_grad \
+--grad.topic rcv_online_svm_16_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
 --rawdata.parallelism 10 \
