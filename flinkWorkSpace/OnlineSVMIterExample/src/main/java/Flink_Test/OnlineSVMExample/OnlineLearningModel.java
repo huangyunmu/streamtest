@@ -105,7 +105,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		rawdataParallelism=parameterTool.getInt("rawdata.parallelism",-1);
 		iterParallelism=parameterTool.getInt("iteration.parallelism",-1);
 		gloablParallelism=parameterTool.getInt("global.parallelism",1);
-		iterWaitTime=parameterTool.getInt("iteration.waitTime",1000);
+		iterWaitTime=parameterTool.getInt("iteration.waitTime",4000);
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
