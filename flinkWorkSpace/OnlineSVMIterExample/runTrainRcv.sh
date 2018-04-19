@@ -17,5 +17,5 @@
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
 --rawdata.parallelism 10 \
---iterParallelism 10 \
+--iteration.parallelism 10 \
 2>&1 | tee -a log.txt
