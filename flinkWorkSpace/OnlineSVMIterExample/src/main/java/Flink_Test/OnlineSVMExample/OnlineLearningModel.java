@@ -149,7 +149,7 @@ public abstract class OnlineLearningModel implements Serializable {
 				CountLabelExample countLabelExample = new CountLabelExample(vector, count);
 				return countLabelExample;
 			}
-		}).name("converted data");
+		}).name("converted data").setParallelism(rawdataParallelism);
 		
 		IterativeStream<CountLabelExample> iterData = convertedData.iterate(4000);
         
