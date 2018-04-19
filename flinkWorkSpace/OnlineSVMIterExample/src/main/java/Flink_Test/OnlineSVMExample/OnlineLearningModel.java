@@ -49,7 +49,8 @@ public abstract class OnlineLearningModel implements Serializable {
 	protected int trainFreq;// Each sample will be process in train frequency
 							// times.
 	protected String tempTopic;// Used to store the data with count
-
+    protected int rawdataParallelism;
+    protected int iterParallelism;
 	private static double formalize(double label) {
 		if (label == 1) {
 			return 1;
@@ -99,12 +100,20 @@ public abstract class OnlineLearningModel implements Serializable {
 				"proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092");
 		zookeeperConnect = parameterTool.get("zookeeper.connect", "localhost:2181");
 		trainFreq = parameterTool.getInt("train.frequency", 1);
+		rawdataParallelism=parameterTool.getInt("rawdata.parallelism",-1);
+		iterParallelism=parameterTool.getInt("iteration.parallelism",-1);		
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
 		final int metricInterval = parameterTool.getInt("metric.interval", 1);
+		if(rawdataParallelism==-1)
+			rawdataParallelism=env.getParallelism();
+		if(iterParallelism==-1)
+			iterParallelism=env.getParallelism();
+		
 		env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
-
+		
+		
 		// Set up data consumer
 		FlinkKafkaConsumer010<String> newDataConsumer = new FlinkKafkaConsumer010<String>(dataTopic,
 				new SimpleStringSchema(), parameterTool.getProperties());
@@ -127,7 +136,7 @@ public abstract class OnlineLearningModel implements Serializable {
 				new DenseVectorSchema(), producerPropersteis);
 
 		// New data is pure lib svm format
-		DataStream<String> rawData = env.addSource(newDataConsumer).name("New data");
+		DataStream<String> rawData = env.addSource(newDataConsumer).name("New data").setParallelism(rawdataParallelism);
 		
 		
 		DataStream<CountLabelExample> convertedData = rawData.map(new MapFunction<String, CountLabelExample>() {
@@ -152,7 +161,7 @@ public abstract class OnlineLearningModel implements Serializable {
 			public LabeledVector map(CountLabelExample example) {
 				return example.getVector();
 			}
-		}).name("train data");
+		}).name("train data").setParallelism(iterParallelism);
 		
 		DataStream<CountLabelExample> stepStream=iterData.map(new MapFunction<CountLabelExample, CountLabelExample>() {
 			private static final long serialVersionUID = 1L;
@@ -162,7 +171,7 @@ public abstract class OnlineLearningModel implements Serializable {
 				example.decreaseCount();
 				return example;
 			}
-		}).name("step stream");
+		}).name("step stream").setParallelism(iterParallelism);
 		
 		DataStream<CountLabelExample> feedback = stepStream.filter(new FilterFunction<CountLabelExample>(){
 		    /**
@@ -174,7 +183,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		    public boolean filter(CountLabelExample value) throws Exception {
 		        return value.getCount() > 0;
 		    }
-		}).name("feedback stream");
+		}).name("feedback stream").setParallelism(iterParallelism);
 		iterData.closeWith(feedback);
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
