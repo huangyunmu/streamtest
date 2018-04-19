@@ -49,6 +49,7 @@ public abstract class OnlineLearningModel implements Serializable {
 	protected int trainFreq;// Each sample will be process in train frequency
 							// times.
 	protected String tempTopic;// Used to store the data with count
+	protected int gloablParallelism;
     protected int rawdataParallelism;
     protected int iterParallelism;
 	private static double formalize(double label) {
@@ -101,11 +102,13 @@ public abstract class OnlineLearningModel implements Serializable {
 		zookeeperConnect = parameterTool.get("zookeeper.connect", "localhost:2181");
 		trainFreq = parameterTool.getInt("train.frequency", 1);
 		rawdataParallelism=parameterTool.getInt("rawdata.parallelism",-1);
-		iterParallelism=parameterTool.getInt("iteration.parallelism",-1);		
+		iterParallelism=parameterTool.getInt("iteration.parallelism",-1);
+		gloablParallelism=parameterTool.getInt("global.parallelism",1);
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
 		final int metricInterval = parameterTool.getInt("metric.interval", 1);
+		env.setParallelism(gloablParallelism);
 		if(rawdataParallelism==-1)
 			rawdataParallelism=env.getParallelism();
 		if(iterParallelism==-1)
