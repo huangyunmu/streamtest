@@ -52,6 +52,7 @@ public abstract class OnlineLearningModel implements Serializable {
 	protected int gloablParallelism;
     protected int rawdataParallelism;
     protected int iterParallelism;
+    protected int iterWaitTime;
 	private static double formalize(double label) {
 		if (label == 1) {
 			return 1;
@@ -104,6 +105,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		rawdataParallelism=parameterTool.getInt("rawdata.parallelism",-1);
 		iterParallelism=parameterTool.getInt("iteration.parallelism",-1);
 		gloablParallelism=parameterTool.getInt("global.parallelism",1);
+		iterWaitTime=parameterTool.getInt("iteration.waitTime",1000);
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
@@ -154,7 +156,7 @@ public abstract class OnlineLearningModel implements Serializable {
 			}
 		}).name("converted data").setParallelism(rawdataParallelism);
 		
-		IterativeStream<CountLabelExample> iterData = convertedData.iterate(4000);
+		IterativeStream<CountLabelExample> iterData = convertedData.iterate(iterWaitTime);
         
 	    
 		DataStream<LabeledVector> trainData = iterData.map(new MapFunction<CountLabelExample, LabeledVector>() {
