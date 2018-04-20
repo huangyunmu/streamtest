@@ -22,4 +22,5 @@
 --iteration.waitTime 4000 \
 --newdata.countfrequency 200 \
 --alldata.countfrequency 2000 \
+--param.outputfrequency 2000 \
 2>&1 | tee -a log.txt

@@ -44,6 +44,7 @@ public abstract class OnlineLearningModel implements Serializable {
 	protected int updateFreq;
 	protected int newDataCountFreq;
 	protected int allDataCountFreq;
+	protected int paramOutputFreq;
 	protected double regularization;
 	protected String gradTopic;
 	protected String bootStrapServers;
@@ -107,8 +108,9 @@ public abstract class OnlineLearningModel implements Serializable {
 		iterParallelism = parameterTool.getInt("iteration.parallelism", -1);
 		gloablParallelism = parameterTool.getInt("global.parallelism", 1);
 		iterWaitTime = parameterTool.getInt("iteration.waitTime", 4000);
-		newDataCountFreq = parameterTool.getInt("newdata.countfrequency", 100);
+		newDataCountFreq = parameterTool.getInt("newdata.countfrequency", 200);
 		allDataCountFreq = parameterTool.getInt("alldata.countfrequency", 1000);
+		paramOutputFreq=parameterTool.getInt("param.outputfrequency", 1000);
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
