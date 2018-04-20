@@ -68,7 +68,8 @@ public class OnlineSVMModel extends OnlineLearningModel {
 				} else {
 					isNew = false;
 				}
-				double fac = v.label() * latestParams.dot(v.vector());
+				double product = latestParams.dot(v.vector());
+				double fac = v.label() * product;
 				double dec = 1 - learningRate * regularization;
 				for (int i = 0; i < paramSize; i++) {
 					latestParams.data()[i] *= dec;
@@ -94,11 +95,11 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					for (int i = 0; i < indices.length; i++) {
 						latestParams.data()[indices[i]] += learningRate * v.label() * values[i];
 					}
-					allDataQueue.add(0);
-					if (isNew) {
-						newDataQueue.add(0);
-					}
+
 				} else {
+
+				}
+				if (fac > 0) {
 					allDataQueue.add(1);
 					allDataCorrectCount++;
 					if (isNew) {
@@ -106,6 +107,11 @@ public class OnlineSVMModel extends OnlineLearningModel {
 						newDataCorrectCount++;
 					}
 
+				} else {
+					allDataQueue.add(0);
+					if (isNew) {
+						newDataQueue.add(0);
+					}
 				}
 				updateCnt += 1;
 				// update parameter and print the result
@@ -145,18 +151,23 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					System.out.println(message);
 				}
 				printParamsCnt++;
-				//Output the parameters
-				if(printParamsCnt==paramOutputFreq){
-					printParamsCnt=0;
-					StringBuffer sb = new StringBuffer();
-					String timeStamp = df.format(new Date());
-					sb.append("Parameters,");
-					sb.append(timeStamp + ",");
-					for (int i = 0; i < paramSize - 1; i++) {
-						sb.append(latestParams.data()[i] + ",");
+				// Output the parameters
+				if (printParamsCnt == paramOutputFreq) {
+					printParamsCnt = 0;
+					if (paramOutputFreq == 1) {
+
+					} else {
+						StringBuffer sb = new StringBuffer();
+						String timeStamp = df.format(new Date());
+						sb.append("Parameters,");
+						sb.append(timeStamp + ",");
+						for (int i = 0; i < paramSize - 1; i++) {
+							sb.append(latestParams.data()[i] + ",");
+						}
+						sb.append(latestParams.data()[paramSize - 1]);
+						System.out.println(sb.toString());
 					}
-					sb.append(latestParams.data()[paramSize - 1]);
-					System.out.println(sb.toString());
+
 				}
 
 			}

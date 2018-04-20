@@ -110,7 +110,8 @@ public abstract class OnlineLearningModel implements Serializable {
 		iterWaitTime = parameterTool.getInt("iteration.waitTime", 4000);
 		newDataCountFreq = parameterTool.getInt("newdata.countfrequency", 200);
 		allDataCountFreq = parameterTool.getInt("alldata.countfrequency", 1000);
-		paramOutputFreq=parameterTool.getInt("param.outputfrequency", 1000);
+		//Default not output parameter
+		paramOutputFreq=parameterTool.getInt("param.outputfrequency", 1);
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
