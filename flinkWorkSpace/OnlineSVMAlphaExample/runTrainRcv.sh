@@ -13,7 +13,7 @@
 --feature.num 47237  \
 --learning.rate 0.01 \
 --update.frequency 250 \
---grad.topic rcv_online_svm_22_grad \
+--grad.topic rcv_online_svm_23_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
 --rawdata.parallelism 10 \
@@ -22,5 +22,5 @@
 --iteration.waitTime 4000 \
 --newdata.countfrequency 200 \
 --alldata.countfrequency 2000 \
---param.outputfrequency 2000 \
+--param.outputfrequency 1000000 \
 2>&1 | tee -a log.txt
