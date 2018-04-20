@@ -8,8 +8,8 @@
 -C file:///data/opt/course/1155086998/lib/flink-ml_2.11-1.3.2.jar \
 -c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
---train.frequency 5000 \
---data.topic rcv_train_2_data_topic \
+--train.frequency 2500 \
+--data.topic rcv_train_6_part_data_topic \
 --feature.num 47237  \
 --learning.rate 0.01 \
 --update.frequency 250 \
@@ -22,5 +22,5 @@
 --iteration.waitTime 4000 \
 --newdata.countfrequency 200 \
 --alldata.countfrequency 2000 \
---param.outputfrequency 1000000 \
+--param.outputfrequency 100000 \
 2>&1 | tee -a log.txt

@@ -25,7 +25,7 @@ public class OnlineSVMModel extends OnlineLearningModel {
 			private int updateCnt = 0;
 			private int printAllDataCnt = 0;
 			private int printNewDataCnt = 0;
-			private int printParamsCnt=0;
+			private int printParamsCnt = 0;
 			private boolean inited = false;
 			private Queue<Integer> allDataQueue = null;
 			private Queue<Integer> newDataQueue = null;
@@ -45,7 +45,7 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					allDataCorrectCount = 0;
 					newDataCorrectCount = 0;
 					String timeStamp = df.format(new Date());
-					System.out.println("Start:" + timeStamp);
+					System.out.println("Start," + timeStamp);
 
 				}
 			}
@@ -124,29 +124,15 @@ public class OnlineSVMModel extends OnlineLearningModel {
 					}
 					latestParams = oldParams.copy();
 				}
-				printParamsCnt++;
-				//Output the parameters
-				if(printParamsCnt==paramOutputFreq){
-					printParamsCnt=0;
-					StringBuffer sb = new StringBuffer();
-					String timeStamp = df.format(new Date());
-					sb.append("1,");
-					sb.append(timeStamp + ",");
-					for (int i = 0; i < paramSize - 1; i++) {
-						sb.append(latestParams.data()[i] + ",");
-					}
-					sb.append(latestParams.data()[paramSize - 1]);
-					System.out.println(sb.toString());
-				}
 				printAllDataCnt++;
 				// Print the accuracy of all data
 				if (printAllDataCnt == allDataCountFreq) {
 
 					printAllDataCnt = 0;
 					String timeStamp = df.format(new Date());
-					
-					String message = "2,"+timeStamp + ",";
-					message = message + "AllDataAccuracy:" + ((float) allDataCorrectCount / allDataQueue.size());
+
+					String message = "AllDataAccuracy," + timeStamp + ",";
+					message = message + ((float) allDataCorrectCount / allDataQueue.size());
 					System.out.println(message);
 				}
 				printNewDataCnt++;
@@ -154,9 +140,23 @@ public class OnlineSVMModel extends OnlineLearningModel {
 				if (printNewDataCnt == newDataCountFreq) {
 					printNewDataCnt = 0;
 					String timeStamp = df.format(new Date());
-					String message = "3," + timeStamp + ",";
-					message = message + "NewDataAccuracy:" + ((float) newDataCorrectCount / newDataQueue.size());
+					String message = "NewDataAccuracy," + timeStamp + ",";
+					message = message + ((float) newDataCorrectCount / newDataQueue.size());
 					System.out.println(message);
+				}
+				printParamsCnt++;
+				//Output the parameters
+				if(printParamsCnt==paramOutputFreq){
+					printParamsCnt=0;
+					StringBuffer sb = new StringBuffer();
+					String timeStamp = df.format(new Date());
+					sb.append("Parameters,");
+					sb.append(timeStamp + ",");
+					for (int i = 0; i < paramSize - 1; i++) {
+						sb.append(latestParams.data()[i] + ",");
+					}
+					sb.append(latestParams.data()[paramSize - 1]);
+					System.out.println(sb.toString());
 				}
 
 			}
