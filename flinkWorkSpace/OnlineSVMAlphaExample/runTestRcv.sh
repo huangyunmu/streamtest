@@ -20,7 +20,7 @@
 --iteration.parallelism 10 \
 --global.parallelism 40 \
 --iteration.waitTime 4000 \
---newdata.countfrequency 50 \
---alldata.countfrequency 1000 \
---param.outputfrequency 20000 \
+--newdata.countfrequency 1000 \
+--alldata.countfrequency 20000 \
+--param.outputfrequency 40000 \
 2>&1 | tee -a log.txt
