@@ -8,7 +8,7 @@
 -C file:///data/opt/course/1155086998/lib/flink-ml_2.11-1.3.2.jar \
 -c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
---train.frequency 200 \
+--train.frequency 1 \
 --data.topic rcv_test_3_data_topic \
 --feature.num 47237  \
 --learning.rate 0.01 \
@@ -18,9 +18,9 @@
 --zookeeper.connect localhost:2181 \
 --rawdata.parallelism 20 \
 --iteration.parallelism 20 \
---global.parallelism 40 \
---iteration.waitTime 4000 \
+--global.parallelism 80 \
+--iteration.waitTime 5000 \
 --newdata.countfrequency 1000 \
---alldata.countfrequency 20000 \
+--alldata.countfrequency 1000 \
 --param.outputfrequency 40000 \
 2>&1 | tee -a log.txt
