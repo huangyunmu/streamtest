@@ -8,17 +8,17 @@
 -C file:///data/opt/course/1155086998/lib/flink-ml_2.11-1.3.2.jar \
 -c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
---train.frequency 20 \
+--train.frequency 1 \
 --data.topic a9_train_2_data_topic \
---feature.num 47237  \
+--feature.num 124  \
 --learning.rate 0.01 \
 --update.frequency 250 \
---grad.topic rcv_online_svm_26_grad \
+--grad.topic a9_online_svm_1_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
---rawdata.parallelism 10 \
---iteration.parallelism 10 \
---global.parallelism 40 \
+--rawdata.parallelism 20 \
+--iteration.parallelism 20 \
+--global.parallelism 80 \
 --iteration.waitTime 4000 \
 --newdata.countfrequency 100 \
 --alldata.countfrequency 200 \
