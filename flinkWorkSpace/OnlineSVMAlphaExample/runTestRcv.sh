@@ -8,7 +8,7 @@
 -C file:///data/opt/course/1155086998/lib/flink-ml_2.11-1.3.2.jar \
 -c Flink_Test.OnlineSVMExample.OnlineSVMExample \
 ./target/OnlineSVMExample-0.0.1.jar \
---train.frequency 1 \
+--train.frequency 10 \
 --data.topic rcv_test_3_data_topic \
 --feature.num 47237  \
 --learning.rate 0.01 \
