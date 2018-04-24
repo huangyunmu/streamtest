@@ -19,7 +19,7 @@
 --rawdata.parallelism 20 \
 --iteration.parallelism 20 \
 --global.parallelism 80 \
---iteration.waitTime 5000 \
+--iteration.waitTime 2000 \
 --newdata.countfrequency 100 \
 --alldata.countfrequency 100 \
 --param.outputfrequency 40000 \
