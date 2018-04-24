@@ -12,7 +12,7 @@
 --data.topic a9_train_2_topic \
 --feature.num 124  \
 --learning.rate 0.01 \
---update.frequency 50 \
+--update.frequency 25 \
 --grad.topic a9_online_svm_1_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
