@@ -12,7 +12,7 @@
 --data.topic rcv_test_3_data_topic \
 --feature.num 47237  \
 --learning.rate 0.01 \
---update.frequency 2000 \
+--update.frequency 50 \
 --grad.topic rcv_online_svm_31_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
