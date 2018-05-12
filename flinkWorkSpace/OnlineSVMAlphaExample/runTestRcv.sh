@@ -18,7 +18,7 @@
 --zookeeper.connect localhost:2181 \
 --rawdata.parallelism 20 \
 --iteration.parallelism 20 \
---global.parallelism 80 \
+--global.parallelism 40 \
 --iteration.waitTime 500 \
 --newdata.countfrequency 100 \
 --alldata.countfrequency 100 \
