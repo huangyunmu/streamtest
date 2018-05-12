@@ -10,7 +10,7 @@
 ./target/OnlineSVMExample-0.0.1.jar \
 --train.frequency 1 \
 --data.topic kdd_test_1_data_topic \
---feature.num 47237  \
+--feature.num 20216831  \
 --learning.rate 0.01 \
 --update.frequency 2000 \
 --grad.topic kdd_online_svm_1_grad \
