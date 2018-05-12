@@ -16,7 +16,7 @@
 --grad.topic rcv_online_svm_32_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
---rawdata.parallelism 20 \
+--rawdata.parallelism 40 \
 --iteration.parallelism 40 \
 --global.parallelism 80 \
 --iteration.waitTime 500 \
