@@ -144,7 +144,8 @@ public abstract class OnlineLearningModel implements Serializable {
 		producerPropersteis.setProperty("bootstrap.servers", bootStrapServers);
 		producerPropersteis.setProperty("zookeeper.connect", zookeeperConnect);
 		producerPropersteis.setProperty("max.request.size", maxRequestSize);
-		producerPropersteis.setProperty("buffer.memory","200000000");
+		producerPropersteis.setProperty("buffer.memory","600000000");
+		producerPropersteis.setProperty("request.timeout.ms","3000");
 
 		FlinkKafkaProducer010<DenseVector> gradTopicProducer = new FlinkKafkaProducer010<DenseVector>(gradTopic,
 				new DenseVectorSchema(), producerPropersteis);

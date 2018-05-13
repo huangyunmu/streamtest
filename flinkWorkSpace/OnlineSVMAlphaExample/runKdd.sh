@@ -10,10 +10,10 @@
 ./target/OnlineSVMExample-0.0.1.jar \
 --train.frequency 1 \
 --data.topic kdd_test_1_data_topic \
---feature.num 20216831  \
+--feature.num 20216831 \
 --learning.rate 0.01 \
 --update.frequency 2000 \
---grad.topic kdd_online_svm_1_grad \
+--grad.topic kdd_online_svm_2_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
 --rawdata.parallelism 5 \
