@@ -202,8 +202,9 @@ public abstract class OnlineLearningModel implements Serializable {
 
 		DataStream<DenseVector> middle = trainData.connect(gradients).flatMap(train());
 
-		DataStreamSink<DenseVector> gradSinkFunction = middle.addSink(gradTopicProducer);
-		gradSinkFunction.name("Gradient sink");
+		// DataStreamSink<DenseVector> gradSinkFunction =
+		// middle.addSink(gradTopicProducer);
+		// gradSinkFunction.name("Gradient sink");
 		middle.process(new ProcessFunction<DenseVector, Long>() {
 			@Override
 			public void processElement(DenseVector value, Context ctx, Collector<Long> out) throws Exception {
