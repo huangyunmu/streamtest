@@ -49,6 +49,7 @@ public abstract class OnlineLearningModel implements Serializable {
 	protected String gradTopic;
 	protected String bootStrapServers;
 	protected String zookeeperConnect;
+	protected String maxRequestSize;
 	protected int trainFreq;// Each sample will be process in train frequency
 							// times.
 	protected String tempTopic;// Used to store the data with count
@@ -112,6 +113,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		allDataCountFreq = parameterTool.getInt("alldata.countfrequency", 1000);
 		//Default not output parameter
 		paramOutputFreq=parameterTool.getInt("param.outputfrequency", 1);
+		maxRequestSize=parameterTool.get("max.request.size", "1000000");
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
@@ -141,6 +143,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		Properties producerPropersteis = new Properties();
 		producerPropersteis.setProperty("bootstrap.servers", bootStrapServers);
 		producerPropersteis.setProperty("zookeeper.connect", zookeeperConnect);
+		producerPropersteis.setProperty("max.request.size", maxRequestSize);
 
 		FlinkKafkaProducer010<DenseVector> gradTopicProducer = new FlinkKafkaProducer010<DenseVector>(gradTopic,
 				new DenseVectorSchema(), producerPropersteis);
