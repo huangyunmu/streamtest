@@ -111,9 +111,9 @@ public abstract class OnlineLearningModel implements Serializable {
 		iterWaitTime = parameterTool.getInt("iteration.waitTime", 4000);
 		newDataCountFreq = parameterTool.getInt("newdata.countfrequency", 200);
 		allDataCountFreq = parameterTool.getInt("alldata.countfrequency", 1000);
-		//Default not output parameter
-		paramOutputFreq=parameterTool.getInt("param.outputfrequency", 1);
-		maxRequestSize=parameterTool.get("max.request.size", "10000000");
+		// Default not output parameter
+		paramOutputFreq = parameterTool.getInt("param.outputfrequency", 1);
+		maxRequestSize = parameterTool.get("max.request.size", "10000000");
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
@@ -144,8 +144,8 @@ public abstract class OnlineLearningModel implements Serializable {
 		producerPropersteis.setProperty("bootstrap.servers", bootStrapServers);
 		producerPropersteis.setProperty("zookeeper.connect", zookeeperConnect);
 		producerPropersteis.setProperty("max.request.size", maxRequestSize);
-		producerPropersteis.setProperty("buffer.memory","600000000");
-		producerPropersteis.setProperty("request.timeout.ms","5000");
+		// producerPropersteis.setProperty("buffer.memory","600000000");
+		// producerPropersteis.setProperty("request.timeout.ms","5000");
 
 		FlinkKafkaProducer010<DenseVector> gradTopicProducer = new FlinkKafkaProducer010<DenseVector>(gradTopic,
 				new DenseVectorSchema(), producerPropersteis);

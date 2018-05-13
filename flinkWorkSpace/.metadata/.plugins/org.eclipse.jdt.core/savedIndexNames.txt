@@ -74,7 +74,6 @@ INDEX VERSION 1.129+D:\Google Drive\Course\Project\MyCode\streamtest\flinkWorkSp
 269133896.index
 3599207510.index
 169398866.index
-1059375749.index
 3622446643.index
 3447512593.index
 2709225165.index
