@@ -16,6 +16,7 @@
 --grad.topic kdd_online_svm_3_grad \
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
+--max.request.size 170000000 \
 --rawdata.parallelism 5 \
 --iteration.parallelism 5 \
 --global.parallelism 5 \

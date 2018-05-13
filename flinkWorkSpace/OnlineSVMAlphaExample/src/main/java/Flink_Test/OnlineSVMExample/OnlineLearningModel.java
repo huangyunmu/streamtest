@@ -113,7 +113,7 @@ public abstract class OnlineLearningModel implements Serializable {
 		allDataCountFreq = parameterTool.getInt("alldata.countfrequency", 1000);
 		//Default not output parameter
 		paramOutputFreq=parameterTool.getInt("param.outputfrequency", 1);
-		maxRequestSize=parameterTool.get("max.request.size", "170000000");
+		maxRequestSize=parameterTool.get("max.request.size", "100000");
 	}
 
 	public void modeling(StreamExecutionEnvironment env) {
