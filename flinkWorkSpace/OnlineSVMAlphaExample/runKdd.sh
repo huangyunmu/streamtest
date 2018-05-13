@@ -17,9 +17,9 @@
 --bootstrap.servers proj10:9092,proj9:9092,proj8:9092,proj7:9092,proj6:9092,proj5:9092 \
 --zookeeper.connect localhost:2181 \
 --max.request.size 170000000 \
---rawdata.parallelism 5 \
---iteration.parallelism 5 \
---global.parallelism 5 \
+--rawdata.parallelism 20 \
+--iteration.parallelism 20 \
+--global.parallelism 20 \
 --iteration.waitTime 500 \
 --newdata.countfrequency 1000 \
 --alldata.countfrequency 1000 \
